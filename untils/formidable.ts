@@ -6,7 +6,7 @@ import { format, } from "date-fns"
 const uploadDir = "uploads"
 fs.mkdirSync(uploadDir, { recursive: true });
 
-
+//多張相upload
 export const newForm = new formidable.IncomingForm({
     uploadDir,
     keepExtensions: true,
@@ -22,7 +22,7 @@ export const newForm = new formidable.IncomingForm({
 
 
 
-
+//1張相upload ,register
 export const form = formidable({
     uploadDir,
     keepExtensions: true,

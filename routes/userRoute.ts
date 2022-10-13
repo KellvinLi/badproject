@@ -49,9 +49,9 @@ async function loginGoogle(req: Request, res: Response) {
             const randomString = crypto.randomBytes(32).toString("hex");
             let googleHashPassword = await hashPassword(randomString)
             // Create the user when the user does not exist
-            user = (await client.query(`INSERT INTO users (username,useremail,password,userimage,is_admin)
-                VALUES ($1,$2,$3,$4,$5) RETURNING *`,
-                [GoogleFile.name, GoogleFile.email, googleHashPassword, GoogleFile.picture, false])).rows[0]
+            user = (await client.query(`INSERT INTO users (username,useremail,password,userimage)
+                VALUES ($1,$2,$3,$4) RETURNING *`,
+                [GoogleFile.name, GoogleFile.email, googleHashPassword, GoogleFile.picture])).rows[0]
         }
         console.log(user);
 
@@ -119,8 +119,8 @@ userRoutes.post('/chat/register', async (req, res) => {
 
         let hashedPassword = await hashPassword(password)
         console.log(hashedPassword)
-        await client.query(`INSERT INTO users (username,useremail,password,userimage,is_admin)
-        VALUES ($1,$2,$3,$4,$5) RETURNING id`,
+        await client.query(`INSERT INTO users (username,useremail,password,userimage)
+        VALUES ($1,$2,$3,$4) RETURNING id`,
             [username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null, false])
 
         res.json({ message: 'User created' })
