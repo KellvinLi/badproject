@@ -12,7 +12,7 @@ import { userRoutes } from './routes/userRoute'
 // import http from 'http';
 // import { Server as SocketIO } from 'socket.io'}
 import grant from 'grant';
-import { memoRoutes } from './routes/memoRoute';
+// import { memoRoutes } from './routes/memoRoute';
 
 
 
@@ -77,7 +77,7 @@ declare module 'express-session' {
 
 
 
-app.use("/", memoRoutes)
+// app.use("/", memoRoutes)
 app.use("/", userRoutes)
 
 app.use('/uploads', express.static('uploads'))
