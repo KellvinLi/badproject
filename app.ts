@@ -4,6 +4,13 @@ import expressSession from 'express-session'
 // import { format, } from 'date-fns'
 // import jsonfile from 'jsonfile'
 import { userRoutes } from './routes/userRoute'
+
+import Knex from "knex";
+const knexConfigs = require("./knexfile");
+const configMode = process.env.NODE_ENV || "development";
+const knexConfig = knexConfigs[configMode];
+export const knex = Knex(knexConfig);
+
 // import formidable from 'formidable'
 // import fs from "fs";
 // import { Request, Response } from 'express'
@@ -12,7 +19,8 @@ import { userRoutes } from './routes/userRoute'
 // import http from 'http';
 // import { Server as SocketIO } from 'socket.io'}
 import grant from 'grant';
-import { memoRoutes } from './routes/memoRoute';
+import { digimonRoutes } from './routes/digimonRoute';
+
 
 
 
@@ -40,7 +48,7 @@ const grantExpress = grant.express({
         "key": process.env.GOOGLE_CLIENT_ID || "",
         "secret": process.env.GOOGLE_CLIENT_SECRET || "",
         "scope": ["profile", "email"],
-        "callback": "/login/google"
+        "callback": "/user/login/google"
     }
 });
 
@@ -77,8 +85,8 @@ declare module 'express-session' {
 
 
 
-app.use("/", memoRoutes)
-app.use("/", userRoutes)
+app.use("/digimon", digimonRoutes)
+app.use("/user", userRoutes)
 
 app.use('/uploads', express.static('uploads'))
 app.use(express.static('public')) // auto to do next()
