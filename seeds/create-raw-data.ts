@@ -49,6 +49,10 @@ export async function seed(knex: Knex): Promise<void> {
         ]).returning('id');
         console.log(digimonData);
 
+        let users = await txn.select('*').from('user')
+        console.log("all user:", users);
+
+
 
         const battleData = await txn("battle").insert([
             { player1_id: userData[4].id, player2_id: userData[0].id, player1_hp: 1000, player2_hp: 1000, player1_got_damage: 900, player2_got_damage: 1000, player1_win: false, player2_win: true },
@@ -82,7 +86,7 @@ export async function seed(knex: Knex): Promise<void> {
             { action: "pillow" },
             { action: "apple" },
         ]).returning('id');
-        console.log(actionData);
+        console.log({ actionData });
 
         const digimonactionData = await txn("digimon_action").insert([
             { action_id: actionData[4].id, digimon_id: digimonData[0].id },
@@ -96,7 +100,7 @@ export async function seed(knex: Knex): Promise<void> {
             { action_id: actionData[8].id, digimon_id: digimonData[1].id },
             { action_id: actionData[9].id, digimon_id: digimonData[0].id },
         ]);
-        console.log(digimonactionData);
+        console.log({ digimonactionData });
 
 
 
