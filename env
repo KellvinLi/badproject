@@ -1,0 +1,7 @@
+DB_NAME=bad_project
+DB_USERNAME=tecky
+DB_PASSWORD=tecky
+DB_HOST=localhost
+
+GOOGLE_CLIENT_ID=93783905043-k2f1jgape3qflp657j05i34upll98te0.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
