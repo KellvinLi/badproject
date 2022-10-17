@@ -1,61 +1,66 @@
 import express from 'express'
 // import { Request, Response } from 'express'
-import { knex } from "knex";
+// import { knex } from "../app";
 // import { client } from '../utils/DB'
 // import formidable from 'formidable'
-
+import DigimonController from "../controllers/digimonController"
 
 
 export const digimonRoutes = express.Router();
 
-//拎 digimon info
-digimonRoutes.get('/digimon_info', async (req, res) => {
-    try {
-        let index = 41;
-        const digimon_result = await knex("digimon").select("*").where("user_id", `${index}`);
-        // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
+let digimonController = new DigimonController();
 
-        res.status(200).json(digimon_result);
-        console.log(digimon_result);
-        return
-    } catch (err) {
-        res.status(404).send(err);
-        return
-    }
-})
+//拎 digimon info
+digimonRoutes.get('/digimon_info', digimonController.digimonInfo)
+//     try {
+//         // let index = 41;
+//         const digimon_result = await knex("digimon").select("*").where("user_id", 41);
+//         // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
+//         console.log(digimon_result);
+//         res.status(200).json(digimon_result);
+//         console.log(digimon_result);
+//         await knex.destroy()
+//         return
+//     } catch (err) {
+//         res.status(404).send(err);
+//         await knex.destroy()
+//         return
+//     }
+
+// })
 
 
 //拎 user info
-digimonRoutes.get('/user_info', async (req, res) => {
-    try {
-        let index = 41;
-        const user_result = await knex("user").select("id", "username", "image").where("id", `${index}`);
-        // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
+digimonRoutes.get('/user_info', digimonController.userInfo)
+//     try {
+//         let index = 41;
+//         const user_result = await knex("user").select("id", "username", "image").where("id", `${index}`);
+//         // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
 
-        res.status(200).json(user_result);
-        console.log(user_result);
-        return
-    } catch (err) {
-        res.status(404).send(err);
-        return
-    }
-})
+//         res.status(200).json(user_result);
+//         console.log(user_result);
+//         return
+//     } catch (err) {
+//         res.status(404).send(err);
+//         return
+//     }
+// })
 
 //拎 battle info
-digimonRoutes.get('/battle_info', async (req, res) => {
-    try {
-        // let index = 41;
-        const battle_result = await knex("battle").select("*")
-        // const digimon_result = await client.query(/*sql*/`SELECT * from Digimon where UseerId = ${index}`)
+digimonRoutes.get('/battle_info', digimonController.battleInfo)
+//     try {
+//         // let index = 41;
+//         const battle_result = await knex("battle").select("*")
+//         // const digimon_result = await client.query(/*sql*/`SELECT * from Digimon where UseerId = ${index}`)
 
-        res.status(200).json(battle_result);
-        console.log(battle_result);
-        return
-    } catch (err) {
-        res.status(404).send(err);
-        return
-    }
-})
+//         res.status(200).json(battle_result);
+//         console.log(battle_result);
+//         return
+//     } catch (err) {
+//         res.status(404).send(err);
+//         return
+//     }
+// })
 
 
 // //update function

@@ -4,17 +4,21 @@ import expressSession from 'express-session'
 // import { format, } from 'date-fns'
 // import jsonfile from 'jsonfile'
 import { userRoutes } from './routes/userRoute'
-
+import dotenv from 'dotenv';
 import Knex from "knex";
-const knexConfigs = require("./knexfile");
-const configMode = process.env.NODE_ENV || "development";
-const knexConfig = knexConfigs[configMode];
-export const knex = Knex(knexConfig);
+const knexConfig = require("./knexfile")
+export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"])
+
+
+// const knexConfigs = require("./knexfile");
+// const configMode = process.env.NODE_ENV || "development";
+// const knexConfig = knexConfigs[configMode];
+// export const knex = Knex(knexConfig);
 
 // import formidable from 'formidable'
 // import fs from "fs";
 // import { Request, Response } from 'express'
-// import { Client } from 'pg';
+
 // import fetch from 'cross-fetch'
 // import http from 'http';
 // import { Server as SocketIO } from 'socket.io'}
@@ -24,6 +28,7 @@ import { digimonRoutes } from './routes/digimonRoute';
 
 
 
+dotenv.config();
 
 const app = express();
 app.use(express.json())
@@ -37,6 +42,14 @@ app.use(
         saveUninitialized: true,
     }),
 )
+
+
+// export const sessionMiddleware = expressSession({
+//     secret: "Tecky Academy ",
+//     resave: true, //Auto save session
+//     saveUninitialized: true,
+//     // cookies: {secure : false}
+// });
 
 const grantExpress = grant.express({
     "defaults": {
@@ -88,7 +101,7 @@ declare module 'express-session' {
 app.use("/digimon", digimonRoutes)
 app.use("/user", userRoutes)
 
-app.use('/uploads', express.static('uploads'))
+app.use(express.static('uploads'))
 app.use(express.static('public')) // auto to do next()
 app.use(express.static('error'))
 
