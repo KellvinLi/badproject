@@ -21,3 +21,10 @@
 //         }
 //     });
 // }
+
+
+import SockerIO from "socket.io";
+
+export let io : SocketIO.Server
+
+export function setSocketIO

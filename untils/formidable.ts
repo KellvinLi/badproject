@@ -15,7 +15,7 @@ export const newForm = new formidable.IncomingForm({
     maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
     filter: part => part.mimetype?.startsWith("image/") || false,
     filename: (name, ext, part, form) => {
-        let newName = format(new Date(), 'yyyy-MM-dd HH:mm:ss') + name + ext
+        let newName = format(new Date(), 'yyyy-MM-dd HH-mm-ss') + name + ext
         return newName
     }
 });
@@ -30,7 +30,7 @@ export const form = formidable({
     maxFileSize: 200 * 1024 ** 2, // the default limit is 200KB
     filter: part => part.mimetype?.startsWith("image/") || false,
     filename: (name, ext, part, form) => {
-        let newName = format(new Date(), 'yyyy-MM-dd HH:mm:ss') + name + ext
+        let newName = format(new Date(), 'yyyy-MM-dd HH-mm-ss') + name + ext
         return newName
     },
 })
