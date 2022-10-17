@@ -4,16 +4,13 @@ import expressSession from 'express-session'
 // import { format, } from 'date-fns'
 // import jsonfile from 'jsonfile'
 import { userRoutes } from './routes/userRoute'
-import dotenv from 'dotenv';
+
 import Knex from "knex";
-const knexConfig = require("./knexfile")
-export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"])
-
-
-// const knexConfigs = require("./knexfile");
-// const configMode = process.env.NODE_ENV || "development";
-// const knexConfig = knexConfigs[configMode];
-// export const knex = Knex(knexConfig);
+const knexConfigs = require("./knexfile");
+const configMode = process.env.NODE_ENV || "development";
+const knexConfig = knexConfigs[configMode];
+export const knex = Knex(knexConfig);
+import dotenv from 'dotenv';
 
 // import formidable from 'formidable'
 // import fs from "fs";

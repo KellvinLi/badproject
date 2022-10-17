@@ -4,6 +4,10 @@ import express from 'express'
 // import { client } from '../utils/DB'
 // import formidable from 'formidable'
 import DigimonController from "../controllers/digimonController"
+// import { knex } from "knex";
+// import { client } from '../utils/DB'
+// import formidable from 'formidable'
+
 
 
 export const digimonRoutes = express.Router();
@@ -33,7 +37,7 @@ digimonRoutes.get('/digimon_info', digimonController.digimonInfo)
 //拎 user info
 digimonRoutes.get('/user_info', digimonController.userInfo)
 //     try {
-        let index = 41;
+        // let index = 41;
 //         const user_result = await knex("user").select("id", "username", "image").where("id", `${index}`);
 //         // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
 
