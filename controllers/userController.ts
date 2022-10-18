@@ -77,10 +77,9 @@ export default class UserController {
     register = async (req: Request, res: Response) => {
         try {
             let { fields, files } = await registerPromise(req);
-            const username = fields.username
-            const useremail = fields.useremail
-            const password = fields.password
-            const checkPassword = fields.checkPassword
+
+
+            let { username, password, confirmPassword, email } = fields
             let userImage;
             let userImageResult;
 
@@ -88,18 +87,15 @@ export default class UserController {
                 userImage = Array.isArray(files.userimage) ? files.userimage[0] : files.userimage;
                 userImageResult = userImage.newFilename;
             }
-
-            console.log("username: ", username);
-            console.log("useremail:", useremail);
-            console.log("password: ", password);
+            console.log({ username, password, confirmPassword, email })
             console.log("userimage: ", userImageResult);
 
 
-            if (!username || !useremail || !password) {
+            if (!username || !email || !password) {
                 res.status(401).json({ message: "Incorrect email or password" });
                 return;
             }
-            if (password !== checkPassword) {
+            if (password !== confirmPassword) {
                 res.status(400).json({
                     message: 'password check failed'
                 })
@@ -109,7 +105,7 @@ export default class UserController {
             let hashedPassword = await hashPassword(password)
             console.log(hashedPassword)
 
-            let newUser = await userService.registerUser(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+            let newUser = await userService.registerUser(username, email, hashedPassword, Object.keys(files).length > 0 ? userImageResult : 'deafult_profile_icon.png')
             // await client.query(`INSERT INTO users (username,useremail,password,userimage)
             // VALUES ($1,$2,$3,$4) RETURNING id`,
             //     [username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null, false])

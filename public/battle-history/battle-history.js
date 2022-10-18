@@ -3,6 +3,7 @@ let backbutton = document.querySelector("#back-btn");
 console.log('backbutton: ', backbutton);
 
 
+<<<<<<< HEAD
 backbutton.addEventListener("click", function (e) {
 
   window.location.href = `/digimon.html`;
@@ -54,3 +55,10 @@ async function getDigimonRecord() {
                     </div>
 `
 }
+=======
+  backbutton.addEventListener("click", function (event) {
+    
+    window.location.href = `/profile_page/profile.html`;
+
+  })
+>>>>>>> 85400645777fb6b29c9a9299cba9b12a5812e081

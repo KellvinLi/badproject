@@ -4,6 +4,10 @@ import express from 'express'
 // import { client } from '../utils/DB'
 // import formidable from 'formidable'
 import DigimonController from "../controllers/digimonController"
+// import { knex } from "knex";
+// import { client } from '../utils/DB'
+// import formidable from 'formidable'
+
 
 
 export const digimonRoutes = express.Router();
