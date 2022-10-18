@@ -186,7 +186,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         // main function
         this.main = optionValue(options, 'main', function () {});
     
-        var div = doc.createElement('div'), parent;
+        var div = doc.createElement('div');
+        let digimonCanvasContainer = doc.querySelector('#digimon-canvas-container');
+        // var div = doc.createElement('div'), parent;
         div.style.overflow = 'hidden';
         // TODO: detect those features
         // image-rendering: -moz-crisp-edges;
@@ -197,8 +199,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         div.id = 'sjs' + nb_scene;
         this.id = nb_scene;
         nb_scene = nb_scene + 1;
-        parent = optionValue(options, 'parent', doc.body);
-        parent.appendChild(div);
+        // parent = optionValue(options, 'parent', doc.body);
+        // parent.appendChild(div);
+        digimonCanvasContainer.appendChild(div);
         this.w = optionValue(options, 'w', 480, 'int');
         this.h = optionValue(options, 'h', 320, 'int');
         this.dom = div;

@@ -5,7 +5,7 @@ console.log('backbutton: ', backbutton);
 
 backbutton.addEventListener("click", function (e) {
 
-  window.location.href = `/profile_page/profile.html`;
+  window.location.href = `/digimon.html`;
 
 })
 
@@ -77,12 +77,3 @@ async function getDigimonInfo() {
 }
 
 getDigimonInfo();
-
-/* TODO:
-  digimon columns:
-  - add max_hp
-  - add level
-  - add type (Vaccine, Virus, Data)
-  - add name
-  - add attribute (Light, Dark, Fire, Ice)
-*/
