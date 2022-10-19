@@ -29,6 +29,7 @@ async function login() {
         })
         if (res.ok) {
             console.log('Login successful')
+            window.location.href = '/userProfile.html'
         }
 
     })

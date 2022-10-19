@@ -17,7 +17,7 @@
 
 <body>
     <div class="container">
-        <div class="blueBg"> 
+        <div class="blueBg">
             <div class="box signin">
                 <h2>Already Have an Account ?</h2>
                 <button class="signinBtn">Sign in</button>
@@ -41,11 +41,19 @@
 
             <div class="form signupForm">
                 <form id="register-form">
-                    <h3>Sign Up</h3>
+                    <h3 class="login-text">Sign Up</h3>
                     <input type="text" id="regUsername" placeholder="Username" name="username">
                     <input type="text" id="regEmail" placeholder="Email Address" name="email">
                     <input type="password" id="regPassword" placeholder="Password" name="password">
-                    <input type="password" id="confirmRegPassword" placeholder="Confirm Password" name="confirmPassword">
+                    <input type="password" id="confirmRegPassword" placeholder="Confirm Password"
+                        name="confirmPassword">
+                    <div class="userimage">
+                        <div class="userimage-text">
+                            <div class="userimage-text-1">Please upload your profile picture before submission</div>
+                            <div class="userimage-text-2"><i class="bi bi-upload"></i></div>
+                        </div>
+                        <input type="file" id="userimage" name="userimage" accept="image/*" required />
+                    </div>
                     <input type="submit" value="Register">
                 </form>
             </div>
@@ -54,24 +62,24 @@
     </div>
 
 
-    
+
     <script>
         const signinBtn = document.querySelector('.signinBtn');
         const signupBtn = document.querySelector('.signupBtn');
         const formBx = document.querySelector('.formBx');
         const body = document.querySelector('body');
 
-        signupBtn.onclick = function() {
+        signupBtn.onclick = function () {
             formBx.classList.add('active');
             body.classList.add('active');
         }
 
-        signinBtn.onclick = function() {
+        signinBtn.onclick = function () {
             formBx.classList.remove('active');
             body.classList.remove('active');
         }
     </script>
-    <script src="index.js"></script>
+    <script src="registerAndLogin.js"></script>
 </body>
 
 </html>
