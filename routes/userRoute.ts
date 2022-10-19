@@ -209,21 +209,22 @@ userRoutes.post('/logout', userController.logout);
 // })
 
 userRoutes.get('/getme', userController.getme);
-        //     if (!req.session["user"]) {
-        //         res.status(403).json({
-        //             message: "403 forbidden you are getting denied access. ",
-        //         });
-        //     } else {
-        //         res.json({
-        //             message: "Success retrieve user",
-        //             data: {
-        //                 user: req.session["user"] ? req.session["user"] : null,
-        //             },
-        //         });
-        //     }
-        // });
+//     if (!req.session["user"]) {
+//         res.status(403).json({
+//             message: "403 forbidden you are getting denied access. ",
+//         });
+//     } else {
+//         res.json({
+//             message: "Success retrieve user",
+//             data: {
+//                 user: req.session["user"] ? req.session["user"] : null,
+//             },
+//         });
+//     }
+// });
 
 
 
 
-
+//拎 user info
+userRoutes.get('/user_info', userController.userInfo)

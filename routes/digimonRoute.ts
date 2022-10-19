@@ -35,9 +35,9 @@ digimonRoutes.get('/digimon_info', digimonController.digimonInfo)
 
 
 //拎 user info
-digimonRoutes.get('/user_info', digimonController.userInfo)
+// digimonRoutes.get('/user_info', digimonController.userInfo)
 //     try {
-        // let index = 41;
+// let index = 41;
 //         const user_result = await knex("user").select("id", "username", "image").where("id", `${index}`);
 //         // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
 
@@ -65,6 +65,27 @@ digimonRoutes.get('/battle_info', digimonController.battleInfo)
 //         return
 //     }
 // })
+
+//拎 battle history
+digimonRoutes.get('/battle_history', digimonController.battleHistory)
+
+//拎 create battle 
+digimonRoutes.get('/create_battle', digimonController.createBattle)
+
+//開一隻新digimon
+digimonRoutes.post('/create_digimon', digimonController.createDigimon)
+
+//update digimon
+digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
+
+//update digimon
+digimonRoutes.put('/ai_digimon', digimonController.aiDigimon)
+
+//update digimon
+digimonRoutes.put('/clean_digimon', digimonController.cleanDigimon)
+
+//delete digimon
+digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 
 
 // //update function

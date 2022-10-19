@@ -195,6 +195,20 @@ export default class UserController {
         }
     }
 
+    userInfo = async (req: Request, res: Response) => {
+        try {
+            let index = 1;
+            const user_result = await userService.getUserInfo(index);
+            // const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
+            res.status(200).json(user_result);
+            console.log(user_result);
+            return
+        } catch (err) {
+            res.status(404).send(err);
+            return
+        }
+    }
+
 
 
 

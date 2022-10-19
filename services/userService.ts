@@ -42,4 +42,12 @@ export default class UserService {
         return registerUser
     }
 
+    async getUserInfo(index: number) {
+        console.log(knex);
+        let userInfo = (await knex("user").select("id", "username", "image").where("id", index));
+        console.log(userInfo);
+
+        return userInfo
+    }
+
 }
