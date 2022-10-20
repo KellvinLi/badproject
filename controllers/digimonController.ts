@@ -124,7 +124,10 @@ export default class DigimonController {
 		try {
 			let digimonId = 1
 			let userId = 1
+			console.log(userId);
+			
 			let happyExp: number = 100
+			console.log(happyExp);
 			let hp: number = 800
 			let exp = Number(happyExp + 50)
 			let updataHp = Number(hp + 100)
@@ -143,7 +146,7 @@ export default class DigimonController {
 				console.log(newDigimonAction_result)
 				console.log(DigimonActionEat_result)
 				return
-			} else if (ai_Result === 'toilet_tissue') {
+			} else if (ai_Result === 'toilet tissue') {
 				const newDigimonAction_result =
 					await this.digimonService.newDigimonAction(digimonId, 2)
 				const DigimonActionClean_result =

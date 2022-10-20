@@ -73,23 +73,21 @@ digimonRoutes.get('/battle_history', digimonController.battleHistory)
 
 //開一隻新digimon
 digimonRoutes.post('/create_digimon', digimonController.createDigimon)
-//拎 create battle
-// digimonRoutes.get('/create_battle', digimonController.createBattle)
 
-// //開一隻新digimon
-// digimonRoutes.post('/create_digimon', digimonController.createDigimon)
+//開一隻新digimon
+digimonRoutes.post('/create_digimon', digimonController.createDigimon)
 
-// //update digimon
-// digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
+//update digimon
+digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
 
 //create digimon ai
 digimonRoutes.post('/ai_digimon', digimonController.aiDigimon)
 
 //update digimon clean
-// digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
+digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
 
-// //let digimon hungrt
-// digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
+//let digimon hungrt
+digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
 
 
 let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {

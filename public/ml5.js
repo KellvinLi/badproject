@@ -42,7 +42,7 @@ async function gotResult(err, results) {
 	if (!objectList.includes(cameraResult)) {
 		classifyVideo()
 	} else {
-		const res = await fetch('/', {
+		const res = await fetch('/digimon/ai_digimon', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8'

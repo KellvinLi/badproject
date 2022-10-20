@@ -9,8 +9,8 @@ export default class DigimonService {
             FROM digimon d 
             left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
             where  user_id = ${index};`)
-		console.log(digimonInfo)
-		return digimonInfo
+		console.log(digimonInfo.rows[0])
+		return digimonInfo.rows[0]
 	}
 
 	async getBattleInfo(index: number) {
