@@ -3,16 +3,19 @@ import express from 'express'
 // import { knex } from "../app";
 // import { client } from '../utils/DB'
 // import formidable from 'formidable'
-import DigimonController from "../controllers/digimonController"
+import DigimonController from '../controllers/digimonController'
 // import { knex } from "knex";
 // import { client } from '../utils/DB'
 // import formidable from 'formidable'
+import cron from 'node-cron'
+import DigimonService from '../services/digimonService'
 
 
+export const digimonRoutes = express.Router()
 
-export const digimonRoutes = express.Router();
 
-let digimonController = new DigimonController();
+let digimonService = new DigimonService()
+let digimonController = new DigimonController(digimonService)
 
 //拎 digimon info
 digimonRoutes.get('/digimon_info', digimonController.digimonInfo)
@@ -32,7 +35,6 @@ digimonRoutes.get('/digimon_info', digimonController.digimonInfo)
 //     }
 
 // })
-
 
 //拎 user info
 // digimonRoutes.get('/user_info', digimonController.userInfo)
@@ -69,24 +71,30 @@ digimonRoutes.get('/battle_info', digimonController.battleInfo)
 //拎 battle history
 digimonRoutes.get('/battle_history', digimonController.battleHistory)
 
-//拎 create battle 
-digimonRoutes.get('/create_battle', digimonController.createBattle)
-
 //開一隻新digimon
 digimonRoutes.post('/create_digimon', digimonController.createDigimon)
 
 //update digimon
 digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
 
-//update digimon
-digimonRoutes.put('/ai_digimon', digimonController.aiDigimon)
+//create digimon ai
+digimonRoutes.post('/ai_digimon', digimonController.aiDigimon)
 
-//update digimon
-digimonRoutes.put('/clean_digimon', digimonController.cleanDigimon)
+//update digimon clean
+digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
+
+//let digimon hungrt
+digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
+
+
+let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {
+	await digimonService.createDigimonClean()
+    await digimonService.letDigimonHungrt()
+})
+job.start()
 
 //delete digimon
-digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
-
+// digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 
 // //update function
 // memoRoutes.put("/memos/update", async (req, res) => {
@@ -99,27 +107,16 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //             res.status(400).json({ message: "index is not a number" });
 //             return;
 //         }
-//         // let data = await jsonfile.readFile(path.join(__dirname, "memo.json"));
-//         // let newObj = data[index]
-//         // console.log(newObj);
-//         // newObj.memoData = memoDataUpdata
-//         //     newObj.msg = content
 
-
-
-//         // await jsonfile.writeFile(path.join(__dirname, "memo.json"), data, { spaces: 2 });
 //         await client.query(`update memos set content =$1 where id = $2`, [memoDataUpdata, Number(index)])
 //         res.status(200).send("success")
 //         return
-
 
 //     } catch (err) {
 //         console.log(err.message)
 //         return
 //     }
 // })
-
-
 
 // // delete function
 // memoRoutes.delete("/memos/delete", async (req, res) => {
@@ -134,7 +131,7 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //         //     return false;
 //         // } return clickIndex != index
 //         // } else if (clickIndex != index) {
-//         //     return true; 
+//         //     return true;
 //         // }
 //         //return clickIndex !=index
 //         if (!clickIndex || !Number(clickIndex)) {
@@ -179,8 +176,6 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //         }
 //         console.log(1.5);
 
-
-
 //         let checkLikeResult = await client.query(/*sql*/`SELECT * FROM user_like_memos  WHERE memo_id=($1) and user_id=($2)`, [Number(index), userId]);
 //         console.log(checkLikeResult.rowCount);
 //         console.log("1");
@@ -206,13 +201,6 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //         await client.query(/*sql*/`Update memos set count=($1) WHERE id=($2)`,
 //             [memoLikedStatus.rowCount, Number(index)]);
 
-
-
-
-
-
-
-
 //         res.status(200).send("success")
 //         return
 //     } catch (err: any) {
@@ -220,4 +208,3 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //         return
 //     }
 // })
-

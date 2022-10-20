@@ -22,9 +22,8 @@
 //     });
 // }
 
+// import SockerIO from "socket.io";
 
-import SockerIO from "socket.io";
+// export let io : SocketIO.Server
 
-export let io : SocketIO.Server
-
-export function setSocketIO
+// export function setSocketIO
