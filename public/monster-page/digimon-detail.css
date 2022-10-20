@@ -15,6 +15,7 @@
     border: 2px solid rgb(29, 139, 236);
     border-radius: 7px;
     padding: 5px;
+    margin-bottom: 5px;
     
 }
 .agumon-img {
@@ -43,10 +44,19 @@ body {
     padding: 10px;
     
 }
-.button.dark{
+.dark-btns {
     display:flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+}
+.button.dark{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.button.success{
     border-radius: 50%;
     width: 50px;
     height: 50px;

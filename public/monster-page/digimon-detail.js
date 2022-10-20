@@ -9,6 +9,17 @@ backbutton.addEventListener("click", function (e) {
 
 })
 
+let dragonbutton = document.querySelector("#dragon-btn");
+
+console.log('dragonbutton: ', dragonbutton);
+
+
+dragonbutton.addEventListener("click", function (e) {
+
+  window.location.href = `/battle-history/battle-history.html`;
+
+})
+
 async function getDigimonInfo() {
   let res = await fetch('/digimon/digimon_info');
   let data = await res.json();
