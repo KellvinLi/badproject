@@ -1,51 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 
 body {
-    justify-content: center;
-    align-items: center;
-    font-family: 'Silkscreen', cursive;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Silkscreen', cursive;
 }
-
 
 .title {
-    width: 70%;    
-    border: 2px solid rgb(29, 139, 236);
-    border-radius: 7px;
-    height: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 50px;
+	width: 70%;
+	border: 2px solid rgb(29, 139, 236);
+	border-radius: 7px;
+	height: 100px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 50px;
 }
 .win {
-    color: green;
-    font-size: 36px;
+	color: green;
+	font-size: 36px;
 }
 
 .battle-history-text {
-    font-size: 20px;
-
+	font-size: 20px;
 }
 
-.battle-record {   
-    border: 2px solid rgb(29, 139, 236);
-    border-radius: 7px;
-    width: 70%;
-    height: 70px;
-    display: flex;
-    justify-content: center;
+.battle-record {
+	border: 2px solid rgb(29, 139, 236);
+	border-radius: 7px;
+	width: 70%;
+	height: 70px;
+	display: flex;
+	justify-content: center;
 }
 
 #battle-record-1 {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
 }
 
 #battle-record-1 .vs-text {
-    flex-grow: 1;
+	flex-grow: 1;
 }
 
-#battle-record-1 .digimon-container{
-    flex-grow: 3;
+#battle-record-1 .digimon-container {
+	flex-grow: 3;
 }

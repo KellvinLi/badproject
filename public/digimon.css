@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 .app-bar {
-    position: unset !important;
-    background-color: rgba(255, 255, 255, 5%);
+	position: unset !important;
+	background-color: rgba(255, 255, 255, 5%);
 }
 .digimon-pendulum {
     background-repeat: no-repeat;
@@ -9,68 +9,65 @@
     margin-top: 200px;
 }
 .custom {
-background-color: rgba(255, 255, 255, 5%);
+	background-color: rgba(255, 255, 255, 5%);
 }
 
 body {
-    justify-content: center;
-    align-items: center;
-    font-family: 'Silkscreen', cursive;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Silkscreen', cursive;
 }
 
 .bar-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: baseline;
-    flex-direction: row;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: baseline;
+	flex-direction: row;
 }
-.hp-text{
-        background-color: #63e5ff;
-        color: #414C6B;
-        width: 100px;
-        clip-path: polygon(0 0, 50% 0, 70% 100%, 0 100%);
+.hp-text {
+	background-color: #63e5ff;
+	color: #414c6b;
+	width: 100px;
+	clip-path: polygon(0 0, 50% 0, 70% 100%, 0 100%);
 }
 
 .happy-exp-text {
-    background-color: #63e5ff;
-    color: #414C6B;
-    width: 200px;
-    clip-path: polygon(0 0, 50% 0, 64% 100%, 0 100%);
-
+	background-color: #63e5ff;
+	color: #414c6b;
+	width: 200px;
+	clip-path: polygon(0 0, 50% 0, 64% 100%, 0 100%);
 }
 
-.att-text{
-    background-color: #63e5ff;
-    color: #414C6B;
-    width: 100px;
-    clip-path: polygon(0 0, 38% 0, 70% 100%, 0 100%);
-
+.att-text {
+	background-color: #63e5ff;
+	color: #414c6b;
+	width: 100px;
+	clip-path: polygon(0 0, 38% 0, 70% 100%, 0 100%);
 }
 
 .level-text {
-    background-color: #63e5ff;
-    color: #414C6B;
-    width: 150px;
-    clip-path: polygon(0 0, 50% 0, 70% 100%, 0 100%);
-
+	background-color: #63e5ff;
+	color: #414c6b;
+	width: 150px;
+	clip-path: polygon(0 0, 50% 0, 70% 100%, 0 100%);
 }
 
 .dragon {
-    display: flex;
-    justify-content: right;
-    align-items: flex-start;
-    margin-bottom: 20px;
+	display: flex;
+	justify-content: right;
+	align-items: flex-start;
+	margin-bottom: 20px;
 }
 
-.camera{
-    display: flex;
-    justify-content: right;
-    margin-bottom: 20px;
+.camera {
+	display: flex;
+	justify-content: right;
+	margin-bottom: 20px;
 }
 
 .home {
-    display: flex;
-    justify-content: right;
+	display: flex;
+	justify-content: right;
 }
 
 .icon-container {
@@ -78,8 +75,8 @@ body {
     display: flex;
     bottom: 100px;
 
-    justify-content: space-evenly;
-    width: 100%;
+	justify-content: space-evenly;
+	width: 100%;
 }
 
 #digimon-canvas-container {

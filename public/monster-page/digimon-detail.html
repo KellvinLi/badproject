@@ -1,94 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"
+		/>
+		<title>agumon-information</title>
+		<link rel="stylesheet" href="digimon-detail.css" />
+	</head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
-  <title>agumon-information</title>
-  <link rel="stylesheet" href="digimon-detail.css">
-</head>
-
-<body>
-  <!-- <div class="background-wrapper"><img src="./3274408.jpg" alt=""></div> -->
-  <div id="digimon-detail" class="grid" style="width: 100vw; background-image:url('./3274408.jpg') ">
-    <div class="row" id="upper-detail-row" style="height:90%">
-      <div class="cell" style="margin-top: 1rem; margin-bottom: 12px">
-        <!--
+	<body>
+		<!-- <div class="background-wrapper"><img src="./3274408.jpg" alt=""></div> -->
+		<div
+			id="digimon-detail"
+			class="grid"
+			style="width: 100vw; background-image: url('./3274408.jpg')"
+		>
+			<div class="row" id="upper-detail-row" style="height: 90%">
+				<div class="cell" style="margin-top: 1rem; margin-bottom: 12px">
+					<!--
               1. .container-fluid - gain 100% width from parent, with left right padding 12px
               2. .flex-column - flex-direction: column, from horizontal to vertical
               3. flex-justify-between - justify-content: space-between
               4. height: 100% - gain full height from parent
             -->
-        <div class="container-fluid d-flex flex-column flex-justify-between" style="height: 100%">
-          <div class="row">level 1</div>
-        <div class="agumon-img">
-         <img src="./png-transparent-digimon-story-cyber-sleuth-agumon-digimon-world-3-gabumon-digimon-carnivoran-video-game-fictional-character-removebg-preview.png"/>
-        </div>
-          <div class="row flex-column">
-            <div class="container-fluid">agumon</div>
-            <div class="container-fluid">type fire vaccine</div>
-            <div class="container-fluid">rookie</div>
-          </div>
-        </div>
-      </div>
-      <div class="cell card text-dark bg-light mb-3 " style="width: 18rem; background: rgb(29,191,236) !important; opacity: 0.7; border-radius: 10px;">
-        <div>Stats</div>
-        <div class="d-flex flex-align-center bar">
-          <div class="hp">
-            <div class="hp-text">HP</div>
-          <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          1000/1000
-        </div>
-        </div>
-        <div class="d-flex flex-align-center bar">
-          <div class="happy-exp">
-            <div class="happy-exp-text">HAPPY-EXP</div>
-          <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          200/200 to Next Level
-        </div>
-        </div>
-        <div class="d-flex flex-align-center bar">
-          <div class="att">
-            <div class="att-text">Att</div>
-          <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          100/100
-        </div>
-        </div>
-        <div class="d-flex flex-align-center bar">
-          <div class="hungry">
-            <div class="hungry-text">Hungry</div>
-          <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          100/100
-        </div>
-        </div>
-        <div class="d-flex flex-align-center bar">
-          <div class="evo">
-            <div class="evo-text">Evo</div>
-          1
-        </div>
-        </div>
-        <div class="d-flex flex-align-center bar">
-          <div class="skill">
-            <div class="skill-text">Skill</div>
-          Pepper Breath
-        </div>
-        </div>
-      </div>
-    </div>
-    <div class="row" style="height:10%">
-      <p>check the Stats, Equipment and Skills of your Digimon.</p>
-    </div>
-   <div class="dark-btns">
-    <button id="back-btn" class="button dark">back</button>
-    <button id="dragon-btn" class="button success"><i class="fa-sharp fa-solid fa-dragon"></i></button>
-
-   </div>
-  </div>
-  <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
-  <script src="https://kit.fontawesome.com/2436289a61.js" crossorigin="anonymous"></script>
-  <script src="digimon-detail.js"></script>
-</body>
-
+					<div
+						class="container-fluid d-flex flex-column flex-justify-between"
+						style="height: 100%"
+					>
+						<div class="row">level 1</div>
+						<div class="agumon-img">
+							<img
+								src="./png-transparent-digimon-story-cyber-sleuth-agumon-digimon-world-3-gabumon-digimon-carnivoran-video-game-fictional-character-removebg-preview.png"
+							/>
+						</div>
+						<div class="row flex-column">
+							<div class="container-fluid">agumon</div>
+							<div class="container-fluid">type fire vaccine</div>
+							<div class="container-fluid">rookie</div>
+						</div>
+					</div>
+				</div>
+				<div
+					class="cell card text-dark bg-light mb-3"
+					style="
+						width: 18rem;
+						background: rgb(29, 191, 236) !important;
+						opacity: 0.7;
+						border-radius: 10px;
+					"
+				>
+					<div>Stats</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="hp">
+							<div class="hp-text">HP</div>
+							<div
+								data-role="progress"
+								data-value="100"
+								style="width: 40%; margin-right: 5px"
+							></div>
+							1000/1000
+						</div>
+					</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="happy-exp">
+							<div class="happy-exp-text">HAPPY-EXP</div>
+							<div
+								data-role="progress"
+								data-value="100"
+								style="width: 40%; margin-right: 5px"
+							></div>
+							200/200 to Next Level
+						</div>
+					</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="att">
+							<div class="att-text">Att</div>
+							<div
+								data-role="progress"
+								data-value="100"
+								style="width: 40%; margin-right: 5px"
+							></div>
+							100/100
+						</div>
+					</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="hungry">
+							<div class="hungry-text">Hungry</div>
+							<div
+								data-role="progress"
+								data-value="100"
+								style="width: 40%; margin-right: 5px"
+							></div>
+							100/100
+						</div>
+					</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="evo">
+							<div class="evo-text">Evo</div>
+							1
+						</div>
+					</div>
+					<div class="d-flex flex-align-center bar">
+						<div class="skill">
+							<div class="skill-text">Skill</div>
+							Pepper Breath
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="height: 10%">
+				<p>check the Stats, Equipment and Skills of your Digimon.</p>
+			</div>
+			<button id="back-btn" class="button dark">back</button>
+		</div>
+		<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+		<script src="digimon-detail.js"></script>
+	</body>
 </html>

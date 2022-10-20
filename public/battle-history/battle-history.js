@@ -1,4 +1,4 @@
-let backbutton = document.querySelector("#back-btn");
+let backbutton = document.querySelector('#back-btn')
 
 console.log('backbutton: ', backbutton);
 
@@ -7,6 +7,8 @@ backbutton.addEventListener("click", function (e) {
 
     window.location.href = `/digimon.html`;
 
+backbutton.addEventListener('click', function (e) {
+	window.location.href = `/digimon.html`
 })
 
 async function getDigimonRecord() {
@@ -32,25 +34,25 @@ async function getDigimonRecord() {
                         </div>
                     </div>
 
-                    <div class="right-row-wrapper">
-                        <div class="battle-record" id="battle-record-1">
-                            <div class="digimon-container">
-                                <div>${digimon.name}</div>
-                                <div class="agumon-img-container">
-                                    <img src=${digimon.image}/>
+			<div class="right-row-wrapper">
+				<div class="battle-record" id="battle-record-1">
+					<div class="digimon-container">
+						<div>${digimon.name}</div>
+						<div class="agumon-img-container">
+							<img src=${digimon.image} />
+						</div>
+					</div>
+					<div class="vs-text">vs</div>
 
-                                </div>
-                            </div>
-                            <div class="vs-text">vs</div>
-
-                            <div class="digimon-container">
-                                <div>${digimon.name}</div>
-                                <div class="gabumon-img-container">
-                                    <img src=${digimon.image}/>
-                                </div>
-                            </div>
-                            <div class="random-match">Random Match</div>
-                        </div>
-                    </div>
-`
+					<div class="digimon-container">
+						<div>${digimon.name}</div>
+						<div class="gabumon-img-container">
+							<img src=${digimon.image} />
+						</div>
+					</div>
+					<div class="random-match">Random Match</div>
+				</div>
+			</div>
+		</div>
+	`
 }

@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css"
+		/>
+		<title>battle-history</title>
+		<link rel="stylesheet" href="battle-result.css" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.korzh.com/metroui/v4/css/metro-all.min.css">
-    <title>battle-history</title>
-    <link rel="stylesheet" href="battle-result.css">
-</head>
+	<body>
+		<div
+			class="grid"
+			style="
+				width: 100vw;
+				height: 100vh;
+				background-image: url('./3274408.jpg');
+			"
+		>
+			<div class="row" style="height: 90%">
+				<div
+					class="cell card text-dark bg-light mb-3 d-flex flex-column flex-align-center"
+					style="
+						width: 18rem;
+						background: rgb(29, 191, 236) !important;
+						opacity: 0.7;
+						border-radius: 10px;
+					"
+				>
+					<div class="title">
+						<div class="battle-history-text">battle result</div>
+						<div class="win">win</div>
+					</div>
+					<div class="battle-record" id="battle-record-1">
+						<div class="digimon-container">agumon</div>
+						<div class="vs-text">vs</div>
+						<div class="digimon-container">gabumon</div>
+						<div class="digimon-container">agumon</div>
+						<div class="vs-text">vs</div>
+						<div class="digimon-container">gabumon</div>
+					</div>
+					<div class="battle-record">2</div>
+					<div class="battle-record">3</div>
+				</div>
+			</div>
+		</div>
 
-<body>
-    <div class="grid" style="width: 100vw; height: 100vh; background-image:url('./3274408.jpg')">
-        <div class="row" style="height:90%">
-            <div class="cell card text-dark bg-light mb-3 d-flex flex-column flex-align-center"
-                style="width: 18rem; background: rgb(29,191,236) !important; opacity: 0.7; border-radius: 10px;">
-                <div class="title">
-                    <div class="battle-history-text">
-                        battle result
-                    </div>
-                    <div class="win">win</div>
-                </div>
-                <div class="battle-record" id="battle-record-1">
-                    <div class="digimon-container">agumon</div>
-                    <div class="vs-text">vs</div>
-                    <div class="digimon-container">gabumon</div>
-                    <div class="digimon-container">agumon</div>
-                    <div class="vs-text">vs</div>
-                    <div class="digimon-container">gabumon</div>
-                </div>
-                <div class="battle-record">2</div>
-                <div class="battle-record">3</div>
-            </div>
-
-
-            <script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
-            <script src="battle-result.js"></script>
-</body>
-
+		<script src="https://cdn.korzh.com/metroui/v4/js/metro.min.js"></script>
+		<script src="battle-result.js"></script>
+	</body>
 </html>
