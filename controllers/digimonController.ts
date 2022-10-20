@@ -4,7 +4,7 @@ import { Request, Response } from "express"
 
 import { form } from "../untils/formidable";
 import { Files } from 'formidable';
-import knex from 'knex';
+// import knex from 'knex';
 
 
 export function registerPromise(req: Request) {
@@ -68,166 +68,166 @@ export default class DigimonController {
         }
     }
 
-    createBattle = async (req: Request, res: Response) => {
-        try {
-            let index = 1
-            const username = fields.username
-            const useremail = fields.useremail
-            const password = fields.password
+    //     createBattle = async (req: Request, res: Response) => {
+    //         try {
+    //             let index = 1
+    //             const username = fields.username
+    //             const useremail = fields.useremail
+    //             const password = fields.password
 
-            const newBattle_result = await digimonService.newBattle(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //             const newBattle_result = await digimonService.newBattle(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
 
-            res.status(200).json(newBattle_result);
-            console.log(newBattle_result);
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
+    //             res.status(200).json(newBattle_result);
+    //             console.log(newBattle_result);
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
 
-    createDigimon = async (req: Request, res: Response) => {
-        try {
-            let index = 1
-            const image = "Digmon_egg.png"
+    //     createDigimon = async (req: Request, res: Response) => {
+    //         try {
+    //             let index = 1
+    //             const image = "Digmon_egg.png"
 
 
-            if (Math.random() > 0.5) {
-                const newDigimon_result = await digimonService.newDigimon(index, image)
-                res.status(200).json(newDigimon_result);
-                console.log(newDigimon_result);
-                return
-            } else {
-                const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
-                res.status(200).json(newDigimon_result2);
-                console.log(newDigimon_result2);
-                return
-            }
+    //             if (Math.random() > 0.5) {
+    //                 const newDigimon_result = await digimonService.newDigimon(index, image)
+    //                 res.status(200).json(newDigimon_result);
+    //                 console.log(newDigimon_result);
+    //                 return
+    //             } else {
+    //                 const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //                 res.status(200).json(newDigimon_result2);
+    //                 console.log(newDigimon_result2);
+    //                 return
+    //             }
 
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
-    evoDigimon = async (req: Request, res: Response) => {
-        try {
-            let index = 1
-            const image = "Digmon_egg.png"
-            const evo = fields.useremail
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
+    //     evoDigimon = async (req: Request, res: Response) => {
+    //         try {
+    //             let index = 1
+    //             const image = "Digmon_egg.png"
+    //             const evo = fields.useremail
 
-            if (evo == 0) {
-                if (Math.random() > 0.5) {
-                    const newDigimon_result = await digimonService.newDigimon(index, image)
-                    res.status(200).json(newDigimon_result);
-                    console.log(newDigimon_result);
-                    return
-                } else {
-                    const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
-                    res.status(200).json(newDigimon_result2);
-                    console.log(newDigimon_result2);
-                    return
-                }
-            } else if (evo == 1) {
-                if (Math.random() > 0.5) {
-                    const newDigimon_result = await digimonService.newDigimon(index, image)
-                    res.status(200).json(newDigimon_result);
-                    console.log(newDigimon_result);
-                    return
-                } else {
-                    const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
-                    res.status(200).json(newDigimon_result2);
-                    console.log(newDigimon_result2);
-                    return
-                }
-            }
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
+    //             if (evo == 0) {
+    //                 if (Math.random() > 0.5) {
+    //                     const newDigimon_result = await digimonService.newDigimon(index, image)
+    //                     res.status(200).json(newDigimon_result);
+    //                     console.log(newDigimon_result);
+    //                     return
+    //                 } else {
+    //                     const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //                     res.status(200).json(newDigimon_result2);
+    //                     console.log(newDigimon_result2);
+    //                     return
+    //                 }
+    //             } else if (evo == 1) {
+    //                 if (Math.random() > 0.5) {
+    //                     const newDigimon_result = await digimonService.newDigimon(index, image)
+    //                     res.status(200).json(newDigimon_result);
+    //                     console.log(newDigimon_result);
+    //                     return
+    //                 } else {
+    //                     const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //                     res.status(200).json(newDigimon_result2);
+    //                     console.log(newDigimon_result2);
+    //                     return
+    //                 }
+    //             }
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
 
-    aiDigimon = async (req: Request, res: Response) => {
-        try {
-            let index = 1
-            const image = "Digmon_egg.png"
-            const ai_Result = fields.useremail
+    //     aiDigimon = async (req: Request, res: Response) => {
+    //         try {
+    //             let index = 1
+    //             const image = "Digmon_egg.png"
+    //             const ai_Result = fields.useremail
 
-            if (ai_Result === "orange") {
-                const newDigimon_result = await digimonService.newDigimon(index, image)
-                res.status(200).json(newDigimon_result);
-                console.log(newDigimon_result);
-                return
-            } else if (ai_Result === "toilet_tissue") {
-                const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
-                res.status(200).json(newDigimon_result2);
-                console.log(newDigimon_result2);
-                return
-            } else if (ai_Result === "toilet_tissue") {
-                const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
-                res.status(200).json(newDigimon_result2);
-                console.log(newDigimon_result2);
-                return
-            }
+    //             if (ai_Result === "orange") {
+    //                 const newDigimon_result = await digimonService.newDigimon(index, image)
+    //                 res.status(200).json(newDigimon_result);
+    //                 console.log(newDigimon_result);
+    //                 return
+    //             } else if (ai_Result === "toilet_tissue") {
+    //                 const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //                 res.status(200).json(newDigimon_result2);
+    //                 console.log(newDigimon_result2);
+    //                 return
+    //             } else if (ai_Result === "toilet_tissue") {
+    //                 const newDigimon_result2 = await digimonService.newDigimon(username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null)
+    //                 res.status(200).json(newDigimon_result2);
+    //                 console.log(newDigimon_result2);
+    //                 return
+    //             }
 
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
 
-    cleanDigimon = async (req: Request, res: Response) => {
-        try {
-            let index = 1
-            const image = "Digmon_egg.png"
-            const clean = fields.useremail
+    //     cleanDigimon = async (req: Request, res: Response) => {
+    //         try {
+    //             let index = 1
+    //             const image = "Digmon_egg.png"
+    //             const clean = fields.useremail
 
-            if (!index || !Number(index)) {
-                res.status(400).json({ message: "index is not a number" });
-                return;
-            }
+    //             if (!index || !Number(index)) {
+    //                 res.status(400).json({ message: "index is not a number" });
+    //                 return;
+    //             }
 
-            if (clean === false) {
-                const cleanDigimon_result = await digimonService.cleanDigimon(index, image)
-                res.status(200).json(cleanDigimon_result);
-                console.log(cleanDigimon_result);
-                return
-            } else if (ai_Result === "toilet_tissue") {
-                const cleanDigimon_result = await digimonService.cleanDigimon(index, image)
-                res.status(200).json(cleanDigimon_result);
-                console.log(cleanDigimon_result);
-                return
+    //             if (clean === false) {
+    //                 const cleanDigimon_result = await digimonService.cleanDigimon(index, image)
+    //                 res.status(200).json(cleanDigimon_result);
+    //                 console.log(cleanDigimon_result);
+    //                 return
+    //             } else if (ai_Result === "toilet_tissue") {
+    //                 const cleanDigimon_result = await digimonService.cleanDigimon(index, image)
+    //                 res.status(200).json(cleanDigimon_result);
+    //                 console.log(cleanDigimon_result);
+    //                 return
 
-            }
+    //             }
 
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
 
-    deleteDigimon = async (req: Request, res: Response) => {
-        try {
-            let clickIndex = req.body.index;
+    //     deleteDigimon = async (req: Request, res: Response) => {
+    //         try {
+    //             let clickIndex = req.body.index;
 
-            //return clickIndex !=index
-            if (!clickIndex || !Number(clickIndex)) {
-                res.status(400).json({ message: "index is not a number" });
-                return;
-            }
-            await digimonService.deleteDigimonAction(index)
-            await digimonService.deleteBattle(index)
-            await digimonService.deleteDigimon(index)
+    //             //return clickIndex !=index
+    //             if (!clickIndex || !Number(clickIndex)) {
+    //                 res.status(400).json({ message: "index is not a number" });
+    //                 return;
+    //             }
+    //             await digimonService.deleteDigimonAction(index)
+    //             await digimonService.deleteBattle(index)
+    //             await digimonService.deleteDigimon(index)
 
-            await knex("digimon_action").del();
-            await knex("action").del();
-            await knex("battle").del();
-            await knex("digimon").del();
-            res.status(200).send("success")
-            return
+    //             await knex("digimon_action").del();
+    //             await knex("action").del();
+    //             await knex("battle").del();
+    //             await knex("digimon").del();
+    //             res.status(200).send("success")
+    //             return
 
-        } catch (err) {
-            res.status(404).send(err);
-            return
-        }
-    }
+    //         } catch (err) {
+    //             res.status(404).send(err);
+    //             return
+    //         }
+    //     }
 
 }
