@@ -1,35 +1,38 @@
 let backbutton = document.querySelector('#back-btn')
 
-console.log('backbutton: ', backbutton)
+console.log('backbutton: ', backbutton);
+
+
+backbutton.addEventListener("click", function (e) {
+
+    window.location.href = `/digimon.html`;
 
 backbutton.addEventListener('click', function (e) {
 	window.location.href = `/digimon.html`
 })
 
 async function getDigimonRecord() {
-	let res = await fetch('/digimon/battle_info=?')
-	let data = await res.json()
-	console.log('getDigimonRecord', data)
+    let res = await fetch('/digimon/battle_info=?');
+    let data = await res.json();
+    console.log('getDigimonRecord', data)
 
-	UpperBattleRecordDetailRow = document.querySelector(
-		'#upper-battle-record-detail-row'
-	)
-	UpperBattleRecordDetailRow.innerHTML += /* HTML */ `
-		<div class="bottom-section d-flex">
-			<div class="left-row-wrapper">
-				<div class="avg-score">
-					<div class="avg-top">avg. score</div>
-					<div class="avg-bottom">${avg.score}</div>
-				</div>
-				<div class="No-of-battle">
-					<div class="No-top">No. of battle</div>
-					<div class="No-bottom">78</div>
-				</div>
-				<div class="win-rate">
-					<div class="win-top">Win Rate</div>
-					<div class="win-bottom">89%</div>
-				</div>
-			</div>
+    UpperBattleRecordDetailRow = document.querySelector('#upper-battle-record-detail-row');
+    UpperBattleRecordDetailRow.innerHTML += /* HTML */ `
+  <div class="bottom-section d-flex">
+                    <div class="left-row-wrapper">
+                        <div class="avg-score">
+                            <div class="avg-top">avg. score</div>
+                            <div class="avg-bottom">${avg.score}</div>
+                        </div>
+                        <div class="No-of-battle">
+                            <div class="No-top">No. of battle</div>
+                            <div class="No-bottom">78</div>
+                        </div>
+                        <div class="win-rate">
+                            <div class="win-top">Win Rate</div>
+                            <div class="win-bottom">89%</div>
+                        </div>
+                    </div>
 
 			<div class="right-row-wrapper">
 				<div class="battle-record" id="battle-record-1">

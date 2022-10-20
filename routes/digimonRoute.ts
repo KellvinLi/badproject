@@ -73,18 +73,23 @@ digimonRoutes.get('/battle_history', digimonController.battleHistory)
 
 //開一隻新digimon
 digimonRoutes.post('/create_digimon', digimonController.createDigimon)
+//拎 create battle
+// digimonRoutes.get('/create_battle', digimonController.createBattle)
 
-//update digimon
-digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
+// //開一隻新digimon
+// digimonRoutes.post('/create_digimon', digimonController.createDigimon)
+
+// //update digimon
+// digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
 
 //create digimon ai
 digimonRoutes.post('/ai_digimon', digimonController.aiDigimon)
 
 //update digimon clean
-digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
+// digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
 
-//let digimon hungrt
-digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
+// //let digimon hungrt
+// digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
 
 
 let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {
@@ -95,6 +100,15 @@ job.start()
 
 //delete digimon
 // digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
+// //update digimon
+// digimonRoutes.put('/ai_digimon', digimonController.aiDigimon)
+
+// //update digimon
+// digimonRoutes.put('/clean_digimon', digimonController.cleanDigimon)
+
+// //delete digimon
+// digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
+
 
 // //update function
 // memoRoutes.put("/memos/update", async (req, res) => {
