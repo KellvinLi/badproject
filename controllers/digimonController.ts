@@ -1,12 +1,7 @@
 import DigimonService from '../services/digimonService'
 // import SocketIO from 'socket.io';
 import { Request, Response } from 'express'
-import { log } from 'console'
 
-// import { form } from '../untils/formidable'
-// import { Files } from 'formidable'
-
-// let digimonService = new DigimonService()
 enum AI_ACTION {
 	ORANGE = 'orange',
 	TOILET_TISSUE = 'toilet tissue',
@@ -18,8 +13,10 @@ export default class DigimonController {
 	digimonInfo = async (req: Request, res: Response) => {
 		try {
 			let userId = req.session.user?.userId || 2
-			const digimon_result = await this.digimonService.getDigimonInfo(userId)
-			if (digimon_result.length <= 0 ) {
+			const digimon_result = await this.digimonService.getDigimonInfo(
+				userId
+			)
+			if (digimon_result.length <= 0) {
 				throw new Error('Digimon not found')
 			}
 			res.status(200).json(digimon_result)
@@ -35,7 +32,7 @@ export default class DigimonController {
 
 	battleInfo = async (req: Request, res: Response) => {
 		try {
-			let index = 41
+			let index = req.session.user?.userId || 1
 			const battle_result = await this.digimonService.getBattleInfo(index)
 			// const digimon_result = await client.query(/*sql*/`SELECT * from Digimon where UseerId = ${index}`)
 
@@ -50,7 +47,7 @@ export default class DigimonController {
 
 	battleHistory = async (req: Request, res: Response) => {
 		try {
-			let index = 1
+			let index = req.session.user?.userId || 1
 			const battleHistory_result =
 				await this.digimonService.getBattleHistoryInfo(index)
 			res.status(200).json(battleHistory_result)
@@ -94,12 +91,16 @@ export default class DigimonController {
 		}
 	}
 	evoDigimon = async (req: Request, res: Response) => {
-		console.log(1)
 		try {
-			let digimonId = 20
-			const evo = 1
-			let digimonName = 'Agumon'
-			let exp = 200
+			let userId = req.session.user?.userId || 1
+			const checkDigimonInfo = await this.digimonService.getDigimonInfo(
+				userId
+			)
+
+			let digimonId: number = checkDigimonInfo.id
+			const evo: number = checkDigimonInfo.evo
+			let digimonName: string = checkDigimonInfo.name
+			let exp: number = checkDigimonInfo.happy_exp
 
 			if (!digimonId || !Number(digimonId)) {
 				res.status(400).json({ message: 'index is not a number' })
@@ -128,16 +129,27 @@ export default class DigimonController {
 
 	aiDigimon = async (req: Request, res: Response) => {
 		try {
-			let digimonId = 1
-			let userId = 1
-			console.log(userId)
+			let userId = req.session.user?.userId 
+			if (!userId){
+				res.status(401).json({
+					message:'Not yet logged in'
+				})
+				return
+			}
+			const checkDigimonInfo = await this.digimonService.getDigimonInfo(
+				userId
+			)
 
-			let happyExp: number = 100
-			console.log(happyExp)
-			let hp: number = 800
+			console.log(checkDigimonInfo.id)
+			console.log(checkDigimonInfo.att)
+			console.log(checkDigimonInfo.hp)
+			console.log(checkDigimonInfo.clean)
+
+			let happyExp: number = checkDigimonInfo.happy_exp
+			let hp: number = checkDigimonInfo.hp
 			let exp = Number(happyExp + 50)
 			let updataHp = Number(hp + 100)
-			if (!digimonId || !Number(digimonId)) {
+			if (!checkDigimonInfo.id || !Number(checkDigimonInfo.id)) {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
@@ -156,7 +168,10 @@ export default class DigimonController {
 				return
 			}
 			const newDigimonAction_result =
-				await this.digimonService.newDigimonAction(digimonId, action.id)
+				await this.digimonService.newDigimonAction(
+					checkDigimonInfo.id,
+					action.id
+				)
 
 			switch (detectionObject) {
 				case AI_ACTION.ORANGE:
@@ -178,7 +193,7 @@ export default class DigimonController {
 					return
 			}
 
-			res.status(200).json(newDigimonAction_result)
+			res.status(200).json('')
 		} catch (err) {
 			console.error(err)
 			res.status(500).send(err)
@@ -207,30 +222,4 @@ export default class DigimonController {
 			return
 		}
 	}
-
-	// deleteDigimon = async (req: Request, res: Response) => {
-	//     try {
-	//         let clickIndex = req.body.index;
-
-	//         //return clickIndex !=index
-	//         if (!clickIndex || !Number(clickIndex)) {
-	//             res.status(400).json({ message: "index is not a number" });
-	//             return;
-	//         }
-	//         await digimonService.deleteDigimonAction(index)
-	//         await digimonService.deleteBattle(index)
-	//         await digimonService.deleteDigimon(index)
-
-	//         await knex("digimon_action").del();
-	//         await knex("action").del();
-	//         await knex("battle").del();
-	//         await knex("digimon").del();
-	//         res.status(200).send("success")
-	//         return
-
-	//     } catch (err) {
-	//         res.status(404).send(err);
-	//         return
-	//     }
-	// }
 }
