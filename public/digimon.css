@@ -27,14 +27,21 @@ body {
   100% {left:50%; top:50px; }
 }
 
-.gubamon-label {
+.monster-label {
   position: absolute;
-  top: 50px;
+  bottom: 50px;
   left: 40%;
   height: 300px;
   animation-name: move;
 }
 
+.egg-label {
+  position: absolute;
+  bottom: 50px;
+  left: 40%;
+  height: 300px;
+  animation-name: move;
+}
 .poo-icon-container {
   position: absolute;
   bottom: 50px;

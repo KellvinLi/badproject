@@ -18,6 +18,12 @@ console.log(name)
 export async function seed(knex: Knex): Promise<void> {
 	const txn = await knex.transaction()
 	// Deletes ALL existing entries
+	await knex.raw('ALTER SEQUENCE action_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'battle_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'digimon_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'digimon_sample_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'user_id_seq RESTART WITH 1' );
+
 	await knex('digimon_action').del()
 	await knex('action').del()
 	await knex('battle').del()
@@ -36,6 +42,13 @@ export async function seed(knex: Knex): Promise<void> {
 				image: '0632419.jpg'
 			})
 		}
+		userArray.push({
+			username: '111',
+			password: await hashPassword('111'),
+			email: chance.email({ domain: 'gmail.com' }),
+			image: '0632419.jpg'
+		})
+		
 		const userData = await txn
 			.insert(userArray)
 			.into('user')
@@ -240,7 +253,6 @@ export async function seed(knex: Knex): Promise<void> {
 			{ action_id: actionData[0].id, digimon_id: digimonData[0].id }
 		])
 		console.log({ digimonactionData })
-
 		await txn.commit()
 		return
 	} catch (e) {

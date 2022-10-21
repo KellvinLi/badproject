@@ -4,26 +4,41 @@ let isMove = false
 
 const trigger = document.querySelector("#trigger");
 let camerabutton = document.querySelector("#camera-btn");
+
+
 // let poobutton = document.querySelector("#poo-btn");
 let pooButtonAnimationWrapper = document.querySelector("#poo-btn-wrapper");
 
 // let eatbutton = document.querySelector('#eat-btn');
 let eatButtonAnimationWrapper = document.querySelector("#eat-btn-wrapper");
 const closeButton = document.querySelector(".close-button");
+const eggLabel = document.querySelector(".egg-label");
 
+eggLabel.addEventListener("click", async () => {
+  const res = await fetch("/digimon/create_digimon", {
+    method: "POST",
+  })
+  const data = await res.json()
+  console.log(data)
+})
 camerabutton.addEventListener("click", function (e) {
   window.location.href = `/ml5.html`;
 })
 
 trigger.addEventListener("click", toggleModal);
 
+
 async function run() {
   let usingImg = ""
-  const res = await fetch("/user/getOwnDigimonId")
-  // const data = await res.json()
-  // if (data.name != 'agumon') {
-  //   return
-  // }
+  const res = await fetch("/digimon/digimon_info")
+  console.log(res)
+  const data = await res.json()
+  console.log("data: ", data);
+  if (res.ok && data.name != 'Agumon') {
+    let monsterLabel = document.querySelector(".monster-label");
+    monsterLabel.src = `./assets/image/${data.name}.gif`;
+    return
+  }
   let walkingContainer = document.querySelector('#digimon-canvas-container')
   let yContainerInvertedLimit = walkingContainer.getBoundingClientRect().y + walkingContainer.getBoundingClientRect() - 200
 

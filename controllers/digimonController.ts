@@ -16,19 +16,17 @@ export default class DigimonController {
 
 	digimonInfo = async (req: Request, res: Response) => {
 		try {
-			// let index = req.body.index;
-			let index = 2
-			const digimon_result = await this.digimonService.getDigimonInfo(
-				index
-			)
-			// const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
-			console.log(digimon_result)
+			let userId = req.session.user?.userId || 2
+			const digimon_result = await this.digimonService.getDigimonInfo(userId)
+			if (digimon_result.length <= 0 ) {
+				throw new Error('Digimon not found')
+			}
 			res.status(200).json(digimon_result)
-			console.log(digimon_result)
-
 			return
 		} catch (err) {
-			res.status(404).send(err)
+			res.status(404).json({
+				message: err.message
+			})
 
 			return
 		}
@@ -65,19 +63,16 @@ export default class DigimonController {
 
 	createDigimon = async (req: Request, res: Response) => {
 		try {
-			let userId = 1
+			let userId = req.session.user?.userId || 2
 			let digimonSampleId
 			if (Math.random() > 0.5) {
 				digimonSampleId = 1
-
 				const newDigimon_result = await this.digimonService.newDigimon(
 					userId,
 					digimonSampleId
 				)
 
 				res.status(200).json(newDigimon_result)
-				console.log(newDigimon_result)
-
 				return
 			} else {
 				digimonSampleId = 3
@@ -90,7 +85,10 @@ export default class DigimonController {
 				return
 			}
 		} catch (err) {
-			res.status(404).send(err)
+			console.log(err)
+			res.status(404).json({
+				message: err.message
+			})
 			return
 		}
 	}

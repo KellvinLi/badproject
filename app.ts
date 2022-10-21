@@ -73,15 +73,16 @@ declare module 'express-session' {
 	}
 }
 
-// const loggedin = (req: express.Request, res: express.Response, next: any) => {
-//     if (req.session.loggedin == true) {
-//         next();
-//         return;
-//     }
-//     res.status(401).send("please Login First")
-//     return
-// }
-app.use('/digimon', digimonRoutes)
+export const loggedin = (req: express.Request, res: express.Response, next: any) => {
+    if (req.session.user?.loggedIn) {
+        next();
+        return;
+    }
+    res.status(401).send("please Login First")
+    return
+}
+
+app.use('/digimon', loggedin, digimonRoutes)
 app.use('/user', userRoutes)
 
 

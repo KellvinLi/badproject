@@ -28,7 +28,8 @@ async function login() {
 		if (res.ok) {
 			console.log('Login successful')
 			loginText.innerHTML = 'Login successful!'
-			setTimeout(() => (window.location.href = '/userProfile.html'), 1000)
+			// setTimeout(() => (window.location.href = '/digimon.html'), 1000)
+			window.location.href = '/digimon.html'
 			loginText.style.fontSize = '1.3rem'
 		} else {
 			loginText.innerHTML = 'Invalid username or password'
