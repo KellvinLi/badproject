@@ -4,13 +4,13 @@ console.log('1')
 export default class DigimonService {
 	constructor() {}
 
-	async getDigimonInfo(index: number) {
+	async getDigimonInfo(userId: number) {
 		let digimonInfo = await knex.raw(`SELECT *
             FROM digimon d 
             left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
-            where  user_id = ${index};`)
-		console.log(digimonInfo.rows[0])
-		return digimonInfo.rows[0]
+            where  user_id = ?;`, [userId])
+			console.log(digimonInfo.rows)
+		return digimonInfo.rows.length > 0 ?  digimonInfo.rows[0] : []
 	}
 
 	async getBattleInfo(index: number) {
@@ -72,10 +72,15 @@ export default class DigimonService {
 		
 	}
 	async newDigimon(userId: number, digimonSampleId: number) {
+		let isExistingEgg =  (await knex('digimon').select("id").where("user_id", userId)).length > 0
+		if (isExistingEgg) {
+			throw new Error('digimon already exists')
+		}
+		
 		let newDigimon1_result = await knex('digimon')
 			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
 			.returning('*')
-		console.log({ newDigimon1_result })
+		return newDigimon1_result
 	}
 
 

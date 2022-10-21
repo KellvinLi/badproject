@@ -18,6 +18,12 @@ console.log(name)
 export async function seed(knex: Knex): Promise<void> {
 	const txn = await knex.transaction()
 	// Deletes ALL existing entries
+	await knex.raw('ALTER SEQUENCE action_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'battle_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'digimon_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'digimon_sample_id_seq RESTART WITH 1' );
+	await knex.raw('ALTER SEQUENCE ' + 'user_id_seq RESTART WITH 1' );
+
 	await knex('digimon_action').del()
 	await knex('action').del()
 	await knex('battle').del()
@@ -36,6 +42,13 @@ export async function seed(knex: Knex): Promise<void> {
 				image: '0632419.jpg'
 			})
 		}
+		userArray.push({
+			username: '111',
+			password: await hashPassword('111'),
+			email: chance.email({ domain: 'gmail.com' }),
+			image: '0632419.jpg'
+		})
+		
 		const userData = await txn
 			.insert(userArray)
 			.into('user')
@@ -109,109 +122,109 @@ export async function seed(knex: Knex): Promise<void> {
 		let users = await txn.select('*').from('user')
 		console.log({ users })
 
-		const battleData = await txn('battle').insert([
-			{
-				player1_id: userData[4].id,
-				player2_id: userData[0].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 900,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[3].id,
-				player2_id: userData[1].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 100,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[2].id,
-				player2_id: userData[2].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 800,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[1].id,
-				player2_id: userData[3].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 1000,
-				player2_got_damage: 500,
-				player1_win: true,
-				player2_win: false
-			},
-			{
-				player1_id: userData[0].id,
-				player2_id: userData[4].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 600,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[0].id,
-				player2_id: userData[4].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 1000,
-				player2_got_damage: 900,
-				player1_win: true,
-				player2_win: false
-			},
-			{
-				player1_id: userData[4].id,
-				player2_id: userData[3].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 600,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[3].id,
-				player2_id: userData[2].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 1000,
-				player2_got_damage: 600,
-				player1_win: true,
-				player2_win: false
-			},
-			{
-				player1_id: userData[2].id,
-				player2_id: userData[1].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 600,
-				player2_got_damage: 1000,
-				player1_win: false,
-				player2_win: true
-			},
-			{
-				player1_id: userData[1].id,
-				player2_id: userData[0].id,
-				player1_hp: 1000,
-				player2_hp: 1000,
-				player1_got_damage: 1000,
-				player2_got_damage: 900,
-				player1_win: true,
-				player2_win: false
-			}
-		])
-		console.log(battleData)
+		// const battleData = await txn('battle').insert([
+		// 	{
+		// 		player1_id: userData[4].id,
+		// 		player2_id: userData[0].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 900,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[3].id,
+		// 		player2_id: userData[1].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 100,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[2].id,
+		// 		player2_id: userData[2].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 800,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[1].id,
+		// 		player2_id: userData[3].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 1000,
+		// 		player2_got_damage: 500,
+		// 		player1_win: true,
+		// 		player2_win: false
+		// 	},
+		// 	{
+		// 		player1_id: userData[0].id,
+		// 		player2_id: userData[4].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 600,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[0].id,
+		// 		player2_id: userData[4].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 1000,
+		// 		player2_got_damage: 900,
+		// 		player1_win: true,
+		// 		player2_win: false
+		// 	},
+		// 	{
+		// 		player1_id: userData[4].id,
+		// 		player2_id: userData[3].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 600,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[3].id,
+		// 		player2_id: userData[2].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 1000,
+		// 		player2_got_damage: 600,
+		// 		player1_win: true,
+		// 		player2_win: false
+		// 	},
+		// 	{
+		// 		player1_id: userData[2].id,
+		// 		player2_id: userData[1].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 600,
+		// 		player2_got_damage: 1000,
+		// 		player1_win: false,
+		// 		player2_win: true
+		// 	},
+		// 	{
+		// 		player1_id: userData[1].id,
+		// 		player2_id: userData[0].id,
+		// 		player1_hp: 1000,
+		// 		player2_hp: 1000,
+		// 		player1_got_damage: 1000,
+		// 		player2_got_damage: 900,
+		// 		player1_win: true,
+		// 		player2_win: false
+		// 	}
+		// ])
+		// console.log(battleData)
 
 		// for (let i = 0; i < 10; i++) {
 		//     actionArray.push({ action: chance1.random() })
@@ -240,7 +253,6 @@ export async function seed(knex: Knex): Promise<void> {
 			{ action_id: actionData[0].id, digimon_id: digimonData[0].id }
 		])
 		console.log({ digimonactionData })
-
 		await txn.commit()
 		return
 	} catch (e) {
