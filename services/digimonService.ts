@@ -1,31 +1,31 @@
-import { knex } from '../app';
-
-
+import { knex } from '../app'
+console.log('1')
 
 export default class DigimonService {
-    constructor() { }
+	constructor() {}
 
-    async getDigimonInfo(index: number) {
+	async getDigimonInfo(index: number) {
+		let digimonInfo = await knex.raw(`SELECT *
+            FROM digimon d 
+            left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
+            where  user_id = ${index};`)
+		console.log(digimonInfo.rows[0])
+		return digimonInfo.rows[0]
+	}
 
-        let digimonInfo = (await knex("digimon").select("*").where("user_id", index));
-        console.log(digimonInfo);
+	async getBattleInfo(index: number) {
+		let battleInfo = await knex('battle')
+			.select('*')
+			.where('player1_id', index)
+			.orWhere('player2_id', index)
+		console.log(battleInfo)
 
-        return digimonInfo
-    }
+		return battleInfo
+	}
 
-
-
-    async getBattleInfo(index: number) {
-
-        let battleInfo = (await knex("battle").select("*").where("player1_id", index).orWhere("player2_id", index));
-        console.log(battleInfo);
-
-        return battleInfo
-    }
-
-    async getBattleHistoryInfo(index: number) {
-
-        let battleInfo = (await knex.raw(`
+	async getBattleHistoryInfo(index: number) {
+		let battleInfo = (
+			await knex.raw(`
         with home_win as (
             select count(*) win_count from battle b  where b.player1_id  = ${index} and b.player1_win = TRUE
             ),
@@ -59,42 +59,145 @@ export default class DigimonService {
             from match_history  
             join "user" u on u.id = ${index}
             
-            `)).rows;
-        console.log(battleInfo);
+            `)
+		).rows
+		console.log(battleInfo)
 
-        return battleInfo
-    }
+		return battleInfo
+	}
 
-    /* a-2. don't need API call here, instead to use time count to trigger this check */
-    async checkPoo () {
-        /** 
-         * a-3 
-         * UPDATE all digimon to set have_poo = true
-         * WHERE have_poo = false
-         * AND ( next_poo_time < Date.now() OR next_poo_time IS NULL)
-         * RETURNING *
-         * 
-         * will ignore digimon which already have shit (have_poo = true)
-         * */
+	async newDigimon1(userId: number, digimonSampleId: number) {
+		let newDigimon1_result = await knex('digimon')
+			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
+			.returning('*')
+		console.log({ newDigimon1_result })
+		return
+	}
 
-        /**
-         * a-4 
-         * io.emit to notify users if any of them are currently logon
-         * this may use user_id to recognize connection with user, 
-         * user_id come from above RETURNING *
-         * */ 
+	async newDigimon2(userId: number, digimonSampleId: number) {
+		let newDigimon2_result = await knex('digimon')
+			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
+			.returning('*')
+		console.log({ newDigimon2_result })
+		return
+	}
 
-        return;
-    }
+	async evoDigimon1(userId: number) {
+		let evoDigimon1_result = await await knex('digimon')
+			.update({
+				digimon_sample_id: 2,
+				evo: 2,
+				att: 200
+			})
+			.where('User_id', userId)
+		console.log({ evoDigimon1_result })
+		return
+	}
 
-    /* e-5. receive API call to clean poo, manually triggered by poo button */
-    async cleanPoo(userId: number): Promise<boolean>{
-        // UPDATE digimon SET have_poo = false, next_poo_time = Date.now() + MIN(30)
-        // WHERE user_id = $1, userId
-        // RETURNING *
+	async evoDigimon2(userId: number) {
+		let evoDigimon1_result = await await knex('digimon')
+			.update({
+				digimon_sample_id: 4,
+				evo: 2,
+				att: 200
+			})
+			.where('User_id', userId)
+		console.log({ evoDigimon1_result })
+		return
+	}
 
-        // if userId = result.user_id, return true, else return false
-        return true;
-    }
+	async newDigimonAction(digimonId: number, actionId: number) {
+		let newDigimon2_result = await knex('digimon_action')
+			.insert([{ digimon_id: digimonId, action_id: actionId }])
+			.returning('*')
+		console.log({ newDigimon2_result })
+		return
+	}
+	async digimonActionEat(userId: number, exp: number) {
+		let digimonActionEat_result = await await knex('digimon')
+			.update({
+				hungrt: 100,
+				happy_exp: exp
+			})
+			.where('user_id', userId)
+		console.log({ digimonActionEat_result })
+		return
+	}
+	async digimonActionClean(userId: number, exp: number) {
+		let digimonActionEat_result = await await knex('digimon')
+			.update({
+				clean: true,
+				happy_exp: exp
+			})
+			.where('user_id', userId)
+		console.log({ digimonActionEat_result })
+		return
+	}
+
+	async digimonActionHp(userId: number, exp: number, updataHp: number) {
+		let digimonActionEat_result = await await knex('digimon')
+			.update({
+				hp: updataHp,
+				happy_exp: exp
+			})
+			.where('user_id', userId)
+		console.log({ digimonActionEat_result })
+		return
+	}
+	async createDigimonClean() {
+		console.log('Call Poo ----------------------------------------------------------------');
+
+		let digimon_ids = await knex.table('digimon').select('id')
+		digimon_ids = digimon_ids.map((obj) => obj.id)
+		digimon_ids = digimon_ids.filter((obj) => {
+			return Math.random() > 0.8
+		})
+
+		console.log('digimon_ids: ', digimon_ids)
+		let update_count = await knex('digimon')
+			.update({
+				clean: false
+			})
+			.whereIn('user_id', digimon_ids)
+		console.log(`Done Poo Count : ${digimon_ids}`);
+
+		return update_count
+	}
+
+	async scheduleCreateShit() {}
+
+
+	async letDigimonHungrt() {
+		console.log('Call Hurt');
+
+		let digimon_ids = await knex.table('digimon').select('id',"hungry")
+		let new_digimon_ids = digimon_ids.map((obj) => obj.id)
+		console.log({digimon_ids})
+		for (let digimon_id of digimon_ids) {
+			digimon_id.hungry -= 1;
+			console.log(`${digimon_id.hungry}`);
+			await knex('digimon')
+			.update({
+				hungry: digimon_id.hungry
+			})
+			.whereIn('user_id', new_digimon_ids)
+			
+		}
+		digimon_ids = digimon_ids.map((obj) => obj.id)
+		
+		console.log({new_digimon_ids})
+		// let update_count = await knex('digimon')
+		// 	.update({
+		// 		clean: false
+		// 	})
+		// 	.whereIn('user_id', digimon_ids)
+		// console.log(`Done Poo Count : ${digimon_ids}`);
+		// console.log(`Done hu Count : ${digimon_ids}`);
+
+		return
+	}
+
+
+
+	
 }
-

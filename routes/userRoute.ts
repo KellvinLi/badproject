@@ -1,4 +1,4 @@
-import express from "express"
+import express from 'express'
 // import { Knex } from "Knex";
 // import { Server as SocketIO } from 'socket.io'
 // import UserService from '../services/userService'
@@ -11,13 +11,11 @@ import express from "express"
 import UserController from '../controllers/userController'
 // import userService from "../services/userService";
 
-export const userRoutes = express.Router();
+export const userRoutes = express.Router()
 
-let userController = new UserController();
-
+let userController = new UserController()
 
 // let userController = new UserController(userService);
-
 
 // export function initialize(client:Knex,io:SocketIO){
 
@@ -34,7 +32,7 @@ let userController = new UserController();
 // }
 
 //攪 Google login
-userRoutes.get('/login/google', userController.loginGoogle);
+userRoutes.get('/login/google', userController.loginGoogle)
 
 // async function loginGoogle(req: Request, res: Response) {
 //     try {
@@ -51,7 +49,7 @@ userRoutes.get('/login/google', userController.loginGoogle);
 //         const GoogleFile = await fetchRes.json();
 //         const users = (await client.query(`SELECT * FROM users WHERE users.username = $1`, [GoogleFile.email])).rows;
 //         let user = users[0];
-//         // get random 32 bit string 
+//         // get random 32 bit string
 //         // 如果 user 不存在，馬上 create 一個
 //         if (!user) {
 //             const randomString = crypto.randomBytes(32).toString("hex");
@@ -80,7 +78,6 @@ userRoutes.get('/login/google', userController.loginGoogle);
 //     }
 // }
 
-
 // register function
 // export function registerPromise(req: Request) {
 //     return new Promise<any>((resolve, reject) => {
@@ -93,7 +90,7 @@ userRoutes.get('/login/google', userController.loginGoogle);
 //     });
 // }
 
-userRoutes.post('/register', userController.register);
+userRoutes.post('/register', userController.register)
 //     try {
 //         let { fields, files } = await registerPromise(req);
 
@@ -113,7 +110,6 @@ userRoutes.post('/register', userController.register);
 //         console.log("useremail:", useremail);
 //         console.log("password: ", password);
 //         console.log("userimage: ", userImageResult);
-
 
 //         if (!username || !useremail || !password) {
 //             res.status(401).json({ message: "Incorrect email or password" });
@@ -140,11 +136,9 @@ userRoutes.post('/register', userController.register);
 
 // })
 
-
 //login  function
 
-
-userRoutes.post('/login', userController.login);
+userRoutes.post('/login', userController.login)
 //     try {
 
 //         const username = req.body.username
@@ -155,7 +149,6 @@ userRoutes.post('/login', userController.login);
 //             res.status(401).json({ message: "Incorrect username or password" });
 //             return;
 //         }
-
 
 //         let login_result = (await client.query(
 //             'SELECT * from users where username = ($1)', [username])).rows;
@@ -197,9 +190,8 @@ userRoutes.post('/login', userController.login);
 
 // })
 
-
 //Logout function
-userRoutes.post('/logout', userController.logout);
+userRoutes.post('/logout', userController.logout)
 //     req.session.destroy(() => {
 //         console.log("user logged out");
 //     })
@@ -208,7 +200,7 @@ userRoutes.post('/logout', userController.logout);
 //     })
 // })
 
-userRoutes.get('/getme', userController.getme);
+userRoutes.get('/getme', userController.getme)
 //     if (!req.session["user"]) {
 //         res.status(403).json({
 //             message: "403 forbidden you are getting denied access. ",
@@ -222,9 +214,6 @@ userRoutes.get('/getme', userController.getme);
 //         });
 //     }
 // });
-
-
-
 
 //拎 user info
 userRoutes.get('/user_info', userController.userInfo)
