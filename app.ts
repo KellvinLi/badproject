@@ -81,10 +81,12 @@ declare module 'express-session' {
 //     res.status(401).send("please Login First")
 //     return
 // }
-
 app.use('/digimon', digimonRoutes)
 app.use('/user', userRoutes)
 
+
+
+// /monster-page/assets/image/Greymon1.png
 app.use(express.static('uploads'))
 app.use(express.static('public')) // auto to do next()
 app.use(express.static('error'))

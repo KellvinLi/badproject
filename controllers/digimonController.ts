@@ -13,7 +13,7 @@ export default class DigimonController {
 	digimonInfo = async (req: Request, res: Response) => {
 		try {
 			// let index = req.body.index;
-			let index = 1
+			let index = 2
 			const digimon_result = await this.digimonService.getDigimonInfo(index)
 			// const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
 			console.log(digimon_result)

@@ -1,6 +1,7 @@
 // below code for userProfile redirect page
 window.onload = () => {
 	init()
+	getUserProfilePic()
 }
 
 function init() {
@@ -37,6 +38,24 @@ async function logout() {
 		window.location.href = '/registerAndLogin.html'
 	}
 }
+
+////////////////////////////////////////////////////////////////////////
+async function getUserProfilePic() {
+	let res = await fetch('/user/user_info')
+	let data = await res.json()
+	console.log('getUserProfilePic: ', data)
+
+	let getUserProfilePic = document.querySelector('#get-user-profile-pic')
+	getUserProfilePic.innerHTML = /* HTML */ `
+	<img src="/assets/image/${data.image}" />
+	</div>
+
+	`
+}
+
+getUserInfo()
+////////////////////////////////////////////////////////////////
+
 
 // below code for QR code
 const wrapper = document.querySelector('.wrapper'),

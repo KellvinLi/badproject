@@ -1,3 +1,9 @@
+window.onload = () => {
+	getDigimonInfo()
+}
+
+// getDigimonInfo()
+
 let backbutton = document.querySelector('#back-btn')
 
 console.log('backbutton: ', backbutton)
@@ -11,33 +17,35 @@ let dragonbutton = document.querySelector("#dragon-btn");
 console.log('dragonbutton: ', dragonbutton);
 
 
-dragonbutton.addEventListener("click", function (e) {
+// dragonbutton.addEventListener("click", function (e) {
 
-  window.location.href = `/battle-history/battle-history.html`;
+//   window.location.href = `/battle-history/battle-history.html`;
 
-})
+// })
+
+
 
 async function getDigimonInfo() {
 	let res = await fetch('/digimon/digimon_info')
 	let data = await res.json()
-	console.log('getDigimonInfo', data)
+	console.log('getDigimonInfo>>>>>>>>>>', data)
 
 	let upperDetailRow = document.querySelector('#upper-detail-row')
-	upperDetailRow.innerHTML += /* HTML */ `
+	upperDetailRow.innerHTML = /* HTML */ `
 		<div class="cell" style="margin-top: 1rem; margin-bottom: 12px">
 			<div
 				class="container-fluid d-flex flex-column flex-justify-between"
 				style="height: 100%"
 			>
 				<!-- TODO: add column at digimon table for level -->
-				<div class="row">${digimon.level}</div>
+				<div class="row">${data.evo}</div>
 				<div class="agumon-img">
-					<img src="${digimon.image}" />
+					<img src="/assets/image/${data.image}" />
 				</div>
 				<div class="row flex-column">
-					<div class="container-fluid">${digimon.id}</div>
-					<div class="container-fluid">${digimon.type}</div>
-					<div class="container-fluid">${digimon.level}</div>
+					<div class="container-fluid">${data.id}</div>
+					<div class="container-fluid">${data.type}</div>
+					<div class="container-fluid">${data.evo}</div>
 				</div>
 			</div>
 		</div>
@@ -54,7 +62,7 @@ async function getDigimonInfo() {
 						data-value="100"
 						style="width: 40%; margin-right: 5px;"
 					></div>
-					${digimon.hp}
+					${data.hp}
 				</div>
 			</div>
 			<div class="d-flex flex-align-center bar">
@@ -65,7 +73,7 @@ async function getDigimonInfo() {
 						data-value="100"
 						style="width: 40%; margin-right: 5px;"
 					></div>
-					${digimon.happy_exp} to Next Level
+					${data.happy_exp} to Next Level
 				</div>
 			</div>
 			<div class="d-flex flex-align-center bar">
@@ -76,7 +84,7 @@ async function getDigimonInfo() {
 						data-value="100"
 						style="width: 40%; margin-right: 5px;"
 					></div>
-					${digimon.att}
+					${data.att}
 				</div>
 			</div>
 			<div class="d-flex flex-align-center bar">
@@ -87,19 +95,19 @@ async function getDigimonInfo() {
 						data-value="100"
 						style="width: 40%; margin-right: 5px;"
 					></div>
-					${digimon.hungry}
+					${data.hungry}
 				</div>
 			</div>
 			<div class="d-flex flex-align-center bar">
 				<div class="evo">
 					<div class="evo-text">Evo</div>
-					${digimon.evo}
+					${data.evo}
 				</div>
 			</div>
 			<div class="d-flex flex-align-center bar">
 				<div class="skill">
 					<div class="skill-text">Skill</div>
-					${digimon.skill}
+					${data.skill}
 				</div>
 			</div>
 		</div>
