@@ -130,7 +130,13 @@ export default class DigimonController {
 
 	aiDigimon = async (req: Request, res: Response) => {
 		try {
-			let userId = req.session.user?.userId || 1
+			let userId = req.session.user?.userId 
+			if (!userId){
+				res.status(401).json({
+					message:'Not yet logged in'
+				})
+				return
+			}
 			const checkDigimonInfo = await this.digimonService.getDigimonInfo(
 				userId
 			)
@@ -148,9 +154,16 @@ export default class DigimonController {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
-			const ai_Result = req.body.aiAction || AI_ACTION.ORANGE
+			const detectionObject = req.body.detectionObject
 
-			const action = await this.digimonService.getAction(ai_Result)
+			if (!Object.values(AI_ACTION).includes(detectionObject)){
+				res.status(401).json({
+					message:"Invalid detection"
+				})
+				return
+			}
+
+			const action = await this.digimonService.getAction(detectionObject)
 			if (!action) {
 				res.status(401).json({ message: 'Invalid action' })
 				return
@@ -161,7 +174,7 @@ export default class DigimonController {
 					action.id
 				)
 
-			switch (ai_Result) {
+			switch (detectionObject) {
 				case AI_ACTION.ORANGE:
 					await this.digimonService.digimonActionEat(userId, exp)
 					break

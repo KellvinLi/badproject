@@ -38,20 +38,42 @@ async function gotResult(err, results) {
 	// The results are in an array ordered by confidence.
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
-
+	console.log(cameraResult)
 	if (!objectList.includes(cameraResult)) {
+		
 		classifyVideo()
+		
 	} else {
+		
+		console.log(cameraResult)
 		const res = await fetch('/digimon/ai_digimon', {
+			
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json; charset=utf-8'
+				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(cameraResult)
+			body: JSON.stringify({
+				detectionObject: cameraResult
+			})
+			
 		})
-		const data = await res.json()
-		console.log(data)
+
+
+		// const messageEditRes = await fetch('/message/update', {
+		// 	method: 'DELETE',
+		// 	body: JSON.stringify({
+		// 		index: editIndex
+		// 	}), //記得JSON出寫返headers
+		// 	headers: { 'Content-Type': 'application/json' }
+		// })
+
+
+
+		const ml5data = await res.json()
+		console.log(ml5data)
+			window.location.href = '/digimon.html'
 	}
+
 
 	return cameraResult
 }
