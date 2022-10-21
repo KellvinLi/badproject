@@ -109,7 +109,8 @@ app.use(express.static('error'))
 //     res.sendFile(path.resolve("./error/404.html"))
 // })
 
-
+/* a-1. call time count function to check poo time for all digimon */
+// app.use()
 
 app.listen(8080, () => {
     console.log('listening on port 8080')

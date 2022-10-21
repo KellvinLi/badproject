@@ -12,6 +12,8 @@ import DigimonController from "../controllers/digimonController"
 
 export const digimonRoutes = express.Router();
 
+/* new DigimonController should be declared at app.ts */
+/* should not have new instance at separated files */
 let digimonController = new DigimonController();
 
 //拎 digimon info
@@ -69,23 +71,23 @@ digimonRoutes.get('/battle_info', digimonController.battleInfo)
 //拎 battle history
 digimonRoutes.get('/battle_history', digimonController.battleHistory)
 
-//拎 create battle 
-digimonRoutes.get('/create_battle', digimonController.createBattle)
+// //拎 create battle 
+// digimonRoutes.get('/create_battle', digimonController.createBattle)
 
-//開一隻新digimon
-digimonRoutes.post('/create_digimon', digimonController.createDigimon)
+// //開一隻新digimon
+// digimonRoutes.post('/create_digimon', digimonController.createDigimon)
 
-//update digimon
-digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
+// //update digimon
+// digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
 
-//update digimon
-digimonRoutes.put('/ai_digimon', digimonController.aiDigimon)
+// //update digimon
+// digimonRoutes.put('/ai_digimon', digimonController.aiDigimon)
 
-//update digimon
-digimonRoutes.put('/clean_digimon', digimonController.cleanDigimon)
+// //update digimon
+// digimonRoutes.put('/clean_digimon', digimonController.cleanDigimon)
 
-//delete digimon
-digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
+// //delete digimon
+// digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 
 
 // //update function
@@ -221,3 +223,5 @@ digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)
 //     }
 // })
 
+
+/* e-3. digimonRoute.patch('/clean-poo', digimonController.cleanPoo)*/

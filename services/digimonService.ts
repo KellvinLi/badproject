@@ -1,8 +1,8 @@
 import { knex } from '../app';
-console.log("1");
 
 
-export default class UserService {
+
+export default class DigimonService {
     constructor() { }
 
     async getDigimonInfo(index: number) {
@@ -65,5 +65,36 @@ export default class UserService {
         return battleInfo
     }
 
+    /* a-2. don't need API call here, instead to use time count to trigger this check */
+    async checkPoo () {
+        /** 
+         * a-3 
+         * UPDATE all digimon to set have_poo = true
+         * WHERE have_poo = false
+         * AND ( next_poo_time < Date.now() OR next_poo_time IS NULL)
+         * RETURNING *
+         * 
+         * will ignore digimon which already have shit (have_poo = true)
+         * */
+
+        /**
+         * a-4 
+         * io.emit to notify users if any of them are currently logon
+         * this may use user_id to recognize connection with user, 
+         * user_id come from above RETURNING *
+         * */ 
+
+        return;
+    }
+
+    /* e-5. receive API call to clean poo, manually triggered by poo button */
+    async cleanPoo(userId: number): Promise<boolean>{
+        // UPDATE digimon SET have_poo = false, next_poo_time = Date.now() + MIN(30)
+        // WHERE user_id = $1, userId
+        // RETURNING *
+
+        // if userId = result.user_id, return true, else return false
+        return true;
+    }
 }
 

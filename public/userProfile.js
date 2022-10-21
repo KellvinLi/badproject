@@ -34,7 +34,7 @@ async function logout() {
     })
     console.log(res)
     if (res.ok) {
-        window.location.href = '/registerAndLogin.html'
+        window.location.href = './registerAndLogin.html'
     }
 }
 
