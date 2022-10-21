@@ -1,7 +1,6 @@
 import DigimonService from '../services/digimonService'
 // import SocketIO from 'socket.io';
 import { Request, Response } from 'express'
-import { log } from 'console'
 
 // import { form } from '../untils/formidable'
 // import { Files } from 'formidable'
@@ -130,16 +129,20 @@ export default class DigimonController {
 
 	aiDigimon = async (req: Request, res: Response) => {
 		try {
-			let digimonId = 1
-			let userId = 1
-			console.log(userId)
+			let userId = 16
+			const checkDigimonInfo = await this.digimonService.getDigimonInfo(
+				userId
+			)
 
+			let digimondata = await res.json(checkDigimonInfo)
+			console.log(digimondata)
+
+			console.log(userId)
 			let happyExp: number = 100
-			console.log(happyExp)
 			let hp: number = 800
 			let exp = Number(happyExp + 50)
 			let updataHp = Number(hp + 100)
-			if (!digimonId || !Number(digimonId)) {
+			if (!digimondata || !Number(digimondata)) {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
@@ -151,7 +154,7 @@ export default class DigimonController {
 				return
 			}
 			const newDigimonAction_result =
-				await this.digimonService.newDigimonAction(digimonId, action.id)
+				await this.digimonService.newDigimonAction(userId, action.id)
 
 			switch (ai_Result) {
 				case AI_ACTION.ORANGE:
