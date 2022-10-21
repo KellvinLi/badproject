@@ -63,18 +63,19 @@ export default class DigimonController {
 			let digimonSampleId
 			if (Math.random() > 0.5) {
 				digimonSampleId = 1
-				const newDigimon_result = await this.digimonService.newDigimon1(
+				
+				const newDigimon_result = await this.digimonService.newDigimon(
 					userId,
 					digimonSampleId
 				)
-				// { user_id: userData[0].id, digimon_sample_id: digimonSample[0].id, },
-				// { user_id: userData[1].id, digimon_sample_id: digimonSample[1].id, },
-				// { user_id: userData[2].id, digimon_sample_id: digimonSample[2].id, }
+
+				res.status(200).json(newDigimon_result)
 				console.log(newDigimon_result)
+		
 				return
 			} else {
 				digimonSampleId = 3
-				const newDigimon_result = await this.digimonService.newDigimon2(
+				const newDigimon_result = await this.digimonService.newDigimon(
 					userId,
 					digimonSampleId
 				)
@@ -88,27 +89,30 @@ export default class DigimonController {
 		}
 	}
 	evoDigimon = async (req: Request, res: Response) => {
+		console.log(1);
 		try {
-			let userId = 1
+			let digimonId = 20
 			const evo = 1
 			let digimonName = 'Agumon'
 			let exp = 200
+		
+			
 
-			if (!userId || !Number(userId)) {
+			if (!digimonId  || !Number(digimonId )) {
 				res.status(400).json({ message: 'index is not a number' })
 				return
+				
 			}
-
-			if (evo == 1 || digimonName == 'Agumon' || exp >= 200) {
+			if (evo == 1 || digimonName == 'Agumon' || exp >= 200) {	
 				const evoigimon_result = await this.digimonService.evoDigimon1(
-					userId
+					digimonId 
 				)
 				res.status(200).json(evoigimon_result)
 				console.log(evoigimon_result)
 				return
-			} else if (evo == 1 || digimonName == 'Gabumon' || exp >= 200) {
+			} else if (evo == 1 || digimonName == 'Gabumon' || exp >= 200) {			
 				const evoigimon_result = await this.digimonService.evoDigimon2(
-					userId
+					digimonId 
 				)
 				res.status(200).json(evoigimon_result)
 				console.log(evoigimon_result)

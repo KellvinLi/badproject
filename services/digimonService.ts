@@ -66,7 +66,7 @@ export default class DigimonService {
 		return battleInfo
 	}
 
-	async newDigimon1(userId: number, digimonSampleId: number) {
+	async newDigimon(userId: number, digimonSampleId: number) {
 		let newDigimon1_result = await knex('digimon')
 			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
 			.returning('*')
@@ -74,36 +74,29 @@ export default class DigimonService {
 		return
 	}
 
-	async newDigimon2(userId: number, digimonSampleId: number) {
-		let newDigimon2_result = await knex('digimon')
-			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
-			.returning('*')
-		console.log({ newDigimon2_result })
-		return
-	}
 
-	async evoDigimon1(userId: number) {
-		let evoDigimon1_result = await await knex('digimon')
+	async evoDigimon1(digimonId : number) {
+		let evoDigimon1_result = await knex('digimon')
 			.update({
 				digimon_sample_id: 2,
 				evo: 2,
-				att: 200
+				att: 200,
 			})
-			.where('User_id', userId)
+			.where('id ', digimonId )
 		console.log({ evoDigimon1_result })
-		return
+		return "Gone"
 	}
 
-	async evoDigimon2(userId: number) {
-		let evoDigimon1_result = await await knex('digimon')
+	async evoDigimon2(digimonId : number) {
+		let evoDigimon1_result = await knex('digimon')
 			.update({
 				digimon_sample_id: 4,
 				evo: 2,
 				att: 200
 			})
-			.where('User_id', userId)
+			.where('id ', digimonId )
 		console.log({ evoDigimon1_result })
-		return
+		return "Gone"
 	}
 
 	async newDigimonAction(digimonId: number, actionId: number) {
@@ -114,7 +107,7 @@ export default class DigimonService {
 		return
 	}
 	async digimonActionEat(userId: number, exp: number) {
-		let digimonActionEat_result = await await knex('digimon')
+		let digimonActionEat_result = await knex('digimon')
 			.update({
 				hungrt: 100,
 				happy_exp: exp
@@ -124,7 +117,7 @@ export default class DigimonService {
 		return
 	}
 	async digimonActionClean(userId: number, exp: number) {
-		let digimonActionEat_result = await await knex('digimon')
+		let digimonActionEat_result = await knex('digimon')
 			.update({
 				clean: true,
 				happy_exp: exp
@@ -135,7 +128,7 @@ export default class DigimonService {
 	}
 
 	async digimonActionHp(userId: number, exp: number, updataHp: number) {
-		let digimonActionEat_result = await await knex('digimon')
+		let digimonActionEat_result =  await knex('digimon')
 			.update({
 				hp: updataHp,
 				happy_exp: exp
@@ -145,7 +138,7 @@ export default class DigimonService {
 		return
 	}
 	async createDigimonClean() {
-		console.log('Call Poo ----------------------------------------------------------------');
+		console.log('Call Poo -----------------------------------');
 
 		let digimon_ids = await knex.table('digimon').select('id')
 		digimon_ids = digimon_ids.map((obj) => obj.id)
@@ -163,8 +156,6 @@ export default class DigimonService {
 
 		return update_count
 	}
-
-	async scheduleCreateShit() {}
 
 
 	async letDigimonHungrt() {

@@ -74,11 +74,8 @@ digimonRoutes.get('/battle_history', digimonController.battleHistory)
 //開一隻新digimon
 digimonRoutes.post('/create_digimon', digimonController.createDigimon)
 
-// //開一隻新digimon
-// digimonRoutes.post('/create_digimon', digimonController.createDigimon)
-
-// //update digimon
-// digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
+//update digimon
+digimonRoutes.put('/evo_digimon', digimonController.evoDigimon)
 
 //create digimon ai
 digimonRoutes.post('/ai_digimon', digimonController.aiDigimon)
