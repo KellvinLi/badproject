@@ -65,13 +65,17 @@ export default class DigimonService {
 
 		return battleInfo
 	}
-
+	getAction = async (actionName:string)=>{
+		let action = await knex.select("*").from('action').where({action:actionName}).first()
+		console.log({ action })
+		return action
+		
+	}
 	async newDigimon(userId: number, digimonSampleId: number) {
 		let newDigimon1_result = await knex('digimon')
 			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
 			.returning('*')
 		console.log({ newDigimon1_result })
-		return
 	}
 
 
@@ -104,12 +108,12 @@ export default class DigimonService {
 			.insert([{ digimon_id: digimonId, action_id: actionId }])
 			.returning('*')
 		console.log({ newDigimon2_result })
-		return
+		return newDigimon2_result
 	}
 	async digimonActionEat(userId: number, exp: number) {
 		let digimonActionEat_result = await knex('digimon')
 			.update({
-				hungrt: 100,
+				hungry: 100,
 				happy_exp: exp
 			})
 			.where('user_id', userId)
