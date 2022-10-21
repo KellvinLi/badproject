@@ -49,9 +49,11 @@ async function gotResult(err, results) {
 			},
 			body: JSON.stringify(cameraResult)
 		})
-		const data = await res.json()
-		console.log(data)
+		const ml5data = await res.json()
+		console.log('ml5data: ---------------->' + ml5data)
+		
 	}
 
+	// window.location.href = '/digimon.html'
 	return cameraResult
 }

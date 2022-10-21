@@ -28,7 +28,7 @@ async function login() {
 		if (res.ok) {
 			console.log('Login successful')
 			loginText.innerHTML = 'Login successful!'
-			setTimeout(() => (window.location.href = '/userProfile.html'), 1000)
+			setTimeout(() => (window.location.href = '/digimon.html'), 1000)
 			loginText.style.fontSize = '1.3rem'
 		} else {
 			loginText.innerHTML = 'Invalid username or password'
@@ -56,7 +56,7 @@ async function register() {
 			console.log('Register successfully')
 			registerText.innerHTML = 'Sign-up successful!'
 			setTimeout(
-				() => (window.location.href = '/registerAndLogin.html'),
+				() => (window.location.href = '/'),
 				1000
 			)
 			loginText.style.fontSize = '1.3rem'
