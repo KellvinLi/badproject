@@ -17,14 +17,17 @@ import dotenv from 'dotenv'
 // import { Request, Response } from 'express'
 
 // import fetch from 'cross-fetch'
-// import http from 'http';
-// import { Server as SocketIO } from 'socket.io'}
+import http from 'http'
+import { Server as SocketIO } from 'socket.io'
 import grant from 'grant'
 import { digimonRoutes } from './routes/digimonRoute'
 
 dotenv.config()
 
 const app = express()
+const server = new http.Server(app)
+const io = new SocketIO(server)
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -73,19 +76,21 @@ declare module 'express-session' {
 	}
 }
 
-export const loggedin = (req: express.Request, res: express.Response, next: any) => {
-    if (req.session.user?.loggedIn) {
-        next();
-        return;
-    }
-    res.status(401).send("please Login First")
-    return
+export const loggedin = (
+	req: express.Request,
+	res: express.Response,
+	next: any
+) => {
+	if (req.session.user?.loggedIn) {
+		next()
+		return
+	}
+	res.status(401).send('please Login First')
+	return
 }
 
 app.use('/digimon', loggedin, digimonRoutes)
 app.use('/user', userRoutes)
-
-
 
 // /monster-page/assets/image/Greymon1.png
 app.use(express.static('uploads'))
@@ -96,6 +101,9 @@ app.use(express.static('error'))
 //     res.sendFile(path.resolve("./error/404.html"))
 // })
 
-app.listen(8080, () => {
+io.on('connection', function (socket) {
+	console.log(socket)
+})
+server.listen(8080, () => {
 	console.log('listening on port 8080')
 })

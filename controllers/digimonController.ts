@@ -19,6 +19,7 @@ export default class DigimonController {
 			if (digimon_result.length <= 0) {
 				throw new Error('Digimon not found')
 			}
+			// io.emit("new-info", { info: "New info Added" });
 			res.status(200).json(digimon_result)
 			return
 		} catch (err) {

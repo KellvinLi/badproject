@@ -12,10 +12,9 @@ backbutton.addEventListener('click', function (e) {
 	window.location.href = `/digimon.html`
 })
 
-let dragonbutton = document.querySelector("#dragon-btn");
+let dragonbutton = document.querySelector('#dragon-btn')
 
-console.log('dragonbutton: ', dragonbutton);
-
+console.log('dragonbutton: ', dragonbutton)
 
 // dragonbutton.addEventListener("click", function (e) {
 
@@ -23,7 +22,11 @@ console.log('dragonbutton: ', dragonbutton);
 
 // })
 
-
+const socket = io.connect()
+socket.on('new-info', (data) => {
+	console.log(data)
+	lgetDigimonInfo()
+})
 
 async function getDigimonInfo() {
 	let res = await fetch('/digimon/digimon_info')
