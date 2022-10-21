@@ -141,9 +141,16 @@ export default class DigimonController {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
-			const ai_Result = req.body.aiAction || AI_ACTION.BAND_AID
+			const detectionObject = req.body.detectionObject
 
-			const action = await this.digimonService.getAction(ai_Result)
+			if (!Object.values(AI_ACTION).includes(detectionObject)){
+				res.status(401).json({
+					message:"Invalid detection"
+				})
+				return
+			}
+
+			const action = await this.digimonService.getAction(detectionObject)
 			if (!action) {
 				res.status(401).json({ message: 'Invalid action' })
 				return
@@ -151,7 +158,7 @@ export default class DigimonController {
 			const newDigimonAction_result =
 				await this.digimonService.newDigimonAction(digimonId, action.id)
 
-			switch (ai_Result) {
+			switch (detectionObject) {
 				case AI_ACTION.ORANGE:
 					await this.digimonService.digimonActionEat(userId, exp)
 					break
