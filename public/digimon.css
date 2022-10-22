@@ -33,7 +33,7 @@ body {
   left: 40%;
   height: 300px;
   animation-name: move;
-  display: none;
+  /* display: none; */
 }
 
 .egg-label {

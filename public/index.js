@@ -57,7 +57,7 @@ async function register() {
 			console.log('Register successfully')
 			registerText.innerHTML = 'Sign-up successful!'
 			setTimeout(
-				() => (window.location.href = '/registerAndLogin.html'),
+				() => (window.location.href = '/'),
 				1000
 			)
 			loginText.style.fontSize = '1.3rem'

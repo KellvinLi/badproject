@@ -45,19 +45,38 @@ async function gotResult(err, results) {
 	if (!objectList.includes(cameraResult)) {
 		// if camera cannot capture valid objects, will retry infinitely
 		classifyVideo()
+		
 	} else {
+		
+		console.log(cameraResult)
 		const res = await fetch('/digimon/ai_digimon', {
+			
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json; charset=utf-8'
+				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(cameraResult)
+			body: JSON.stringify({
+				detectionObject: cameraResult
+			})
+			
 		})
-		const data = await res.json()
-		console.log('/digimon/ai_digimon data: ', data)
-		
-		// let digimonAction = data[0];
+
+
+		// const messageEditRes = await fetch('/message/update', {
+		// 	method: 'DELETE',
+		// 	body: JSON.stringify({
+		// 		index: editIndex
+		// 	}), //記得JSON出寫返headers
+		// 	headers: { 'Content-Type': 'application/json' }
+		// })
+
+
+
+		const ml5data = await res.json()
+		console.log('ml5data: ', ml5data)
+			window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
 	}
+
 
 	return cameraResult
 }

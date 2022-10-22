@@ -1,16 +1,18 @@
 import { knex } from '../app'
-console.log('1')
 
 export default class DigimonService {
 	constructor() {}
 
 	async getDigimonInfo(userId: number) {
-		let digimonInfo = await knex.raw(`SELECT *
+		let digimonInfo = await knex.raw(
+			`SELECT *
             FROM digimon d 
             left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
-            where  user_id = ?;`, [userId])
-			console.log(digimonInfo.rows)
-		return digimonInfo.rows.length > 0 ?  digimonInfo.rows[0] : []
+            where  user_id = ?;`,
+			[userId]
+		)
+		console.log(digimonInfo.rows)
+		return digimonInfo.rows.length > 0 ? digimonInfo.rows[0] : []
 	}
 
 	async getBattleInfo(index: number) {
@@ -65,47 +67,62 @@ export default class DigimonService {
 
 		return battleInfo
 	}
-	getAction = async (actionName:string)=>{
-		let action = await knex.select("*").from('action').where({action:actionName}).first()
+	getAction = async (actionName: string) => {
+		let action = await knex
+			.select('*')
+			.from('action')
+			.where({ action: actionName })
+			.first()
 		console.log({ action })
 		return action
-		
 	}
 	async newDigimon(userId: number, digimonSampleId: number) {
-		let isExistingEgg =  (await knex('digimon').select("id").where("user_id", userId)).length > 0
+		let isExistingEgg =
+			(await knex('digimon').select('id').where('user_id', userId))
+				.length > 0
 		if (isExistingEgg) {
 			throw new Error('digimon already exists')
 		}
-		
+
 		let newDigimon1_result = await knex('digimon')
 			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
 			.returning('*')
+
+		/* TODO: get a full result like getDigimonInfo */
+		// let result = await knex
+
+		let result = await knex('digimon')
+			.join('digimon_sample', 'digimon_name', 'digimon_image')
+			.where({'id ': userId})
+			console.log(result)
+
+
+
 		return newDigimon1_result
 	}
 
-
-	async evoDigimon1(digimonId : number) {
+	async evoDigimon1(digimonId: number) {
 		let evoDigimon1_result = await knex('digimon')
 			.update({
 				digimon_sample_id: 2,
 				evo: 2,
-				att: 200,
+				att: 200
 			})
-			.where('id ', digimonId )
+			.where('id ', digimonId)
 		console.log({ evoDigimon1_result })
-		return "Gone"
+		return 'Gone'
 	}
 
-	async evoDigimon2(digimonId : number) {
+	async evoDigimon2(digimonId: number) {
 		let evoDigimon1_result = await knex('digimon')
 			.update({
 				digimon_sample_id: 4,
 				evo: 2,
 				att: 200
 			})
-			.where('id ', digimonId )
+			.where('id ', digimonId)
 		console.log({ evoDigimon1_result })
-		return "Gone"
+		return 'Gone'
 	}
 
 	async newDigimonAction(digimonId: number, actionId: number) {
@@ -137,7 +154,7 @@ export default class DigimonService {
 	}
 
 	async digimonActionHp(userId: number, exp: number, updataHp: number) {
-		let digimonActionEat_result =  await knex('digimon')
+		let digimonActionEat_result = await knex('digimon')
 			.update({
 				hp: updataHp,
 				happy_exp: exp
@@ -147,7 +164,7 @@ export default class DigimonService {
 		return
 	}
 	async createDigimonClean() {
-		console.log('Call Poo -----------------------------------');
+		console.log('Call Poo -----------------------------------')
 
 		let digimon_ids = await knex.table('digimon').select('id')
 		digimon_ids = digimon_ids.map((obj) => obj.id)
@@ -161,43 +178,30 @@ export default class DigimonService {
 				clean: false
 			})
 			.whereIn('user_id', digimon_ids)
-		console.log(`Done Poo Count : ${digimon_ids}`);
+		console.log(`Done Poo Count : ${digimon_ids}`)
 
 		return update_count
 	}
 
-
 	async letDigimonHungrt() {
-		console.log('Call Hurt');
+		console.log('Call Hurt')
 
-		let digimon_ids = await knex.table('digimon').select('id',"hungry")
+		let digimon_ids = await knex.table('digimon').select('id', 'hungry')
 		let new_digimon_ids = digimon_ids.map((obj) => obj.id)
-		console.log({digimon_ids})
+		console.log({ digimon_ids })
 		for (let digimon_id of digimon_ids) {
-			digimon_id.hungry -= 1;
-			console.log(`${digimon_id.hungry}`);
+			digimon_id.hungry -= 1
+			console.log(`${digimon_id.hungry}`)
 			await knex('digimon')
-			.update({
-				hungry: digimon_id.hungry
-			})
-			.whereIn('user_id', new_digimon_ids)
-			
+				.update({
+					hungry: digimon_id.hungry
+				})
+				.whereIn('user_id', new_digimon_ids)
 		}
 		digimon_ids = digimon_ids.map((obj) => obj.id)
-		
-		console.log({new_digimon_ids})
-		// let update_count = await knex('digimon')
-		// 	.update({
-		// 		clean: false
-		// 	})
-		// 	.whereIn('user_id', digimon_ids)
-		// console.log(`Done Poo Count : ${digimon_ids}`);
-		// console.log(`Done hu Count : ${digimon_ids}`);
+
+		// console.log({ new_digimon_ids })
 
 		return
 	}
-
-
-
-	
 }
