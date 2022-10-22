@@ -4,15 +4,9 @@ let isMove = false
 
 const trigger = document.querySelector("#trigger");
 let camerabutton = document.querySelector("#camera-btn");
-
-
-// let poobutton = document.querySelector("#poo-btn");
-let pooButtonAnimationWrapper = document.querySelector("#poo-btn-wrapper");
-
-// let eatbutton = document.querySelector('#eat-btn');
-let eatButtonAnimationWrapper = document.querySelector("#eat-btn-wrapper");
 const closeButton = document.querySelector(".close-button");
-const eggLabel = document.querySelector(".egg-label");
+const eggLabel = document.querySelector("#digimon-canvas-container .egg-label");
+const monsterLabel = document.querySelector("#digimon-canvas-container .monster-label");
 
 eggLabel.addEventListener("click", async () => {
   const res = await fetch("/digimon/create_digimon", {
@@ -20,7 +14,12 @@ eggLabel.addEventListener("click", async () => {
   })
   const data = await res.json()
   console.log(data)
+  
+  eggLabel.style.display = "none";
+  monsterLabel.style.display = "block";
 })
+
+
 camerabutton.addEventListener("click", function (e) {
   window.location.href = `/ml5.html`;
 })
@@ -32,15 +31,19 @@ async function run() {
   let usingImg = ""
   const res = await fetch("/digimon/digimon_info")
   console.log(res)
+
   const data = await res.json()
   console.log("data: ", data);
+
   if (res.ok && data.name != 'Agumon') {
     let monsterLabel = document.querySelector(".monster-label");
-    monsterLabel.src = `./assets/image/${data.name}.gif`;
+    monsterLabel.src = `/assets/image/${data.name}1.png`;
     return
   }
+
   let walkingContainer = document.querySelector('#digimon-canvas-container')
   let yContainerInvertedLimit = walkingContainer.getBoundingClientRect().y + walkingContainer.getBoundingClientRect() - 200
+  console.log("run2")
 
   let scene = sjs.Scene({ w: window.innerWidth, h: walkingContainer });
   scene.loadImages([imgUrl], function () {
@@ -140,8 +143,12 @@ async function run() {
 
   });
 
-  let dragonbutton = document.querySelector("#dragon-btn");
 
+}
+
+window.onload = () => {
+  init()
+  let dragonbutton = document.querySelector("#dragon-btn");
   console.log('dragonbutton: ', dragonbutton);
 
   dragonbutton.addEventListener("click", function (e) {
@@ -149,11 +156,6 @@ async function run() {
     window.location.href = `./monster-page/digimon-detail.html`;
 
   })
-
-}
-
-window.onload = () => {
-  init()
 }
 
 function init() {
@@ -191,28 +193,28 @@ async function getDigimonInfo() {
       <div class="hp">
         <div class="hp-text">HP</div>
         <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-        ${digimon?.hp}/1000
+        ${data.hp}
       </div>
     </div>
     <div class="d-flex flex-align-center bar">
       <div class="happy-exp">
         <div class="happy-exp-text">HAPPY-EXP</div>
         <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-        ${digimon?.happy_exp}/200
+        ${data.happy_exp}
       </div>
     </div>    
       <div class="d-flex flex-align-center bar">
         <div class="hungry">
           <div class="hungry-text">Hungry</div>
           <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          ${digimon?.hungry}
+          ${data.hungry}
         </div>
       </div>
       <div class="d-flex flex-align-center bar">
         <div class="evo">
           <div class="evo-text">Evo</div>
           <div data-role="progress" data-value="100" style="width: 40%; margin-right: 5px;"></div>
-          ${digimon?.evo}
+          ${data.evo}
         </div>
       </div>
     </div>
@@ -265,19 +267,7 @@ function toggleModal() {
   modal.classList.toggle("show-modal");
 }
 
-// poobutton.addEventListener("click", function (e) {
-//   /* e-1. remove animation class */
-//   console.log('poobutton: ', poobutton);
-//   pooButtonAnimationWrapper.classList.remove('poo')
 
-//   /* e-2. cleanPoo - send PUT/PATCH request to server to turn off poo status */
-
-// })
-
-// eatbutton.addEventListener('click', function (e) {
-//   console.log('eatbutton: ', eatbutton);
-//   eatButtonAnimationWrapper.classList.remove('bite')
-// })
 
 closeButton.addEventListener("click", toggleModal);
 
