@@ -31,12 +31,12 @@ digimonRoutes.post('/ai_digimon', digimonController.aiDigimon)
 //update digimon clean
 digimonRoutes.put('/clean_digimon_false', digimonController.cleanDigimonFalse)
 
-//let digimon hungrt
-digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
+//let digimon hungry
+digimonRoutes.put('/digimon_hungry', digimonController.digimonHungry)
 
 let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {
 	await digimonService.createDigimonClean()
-	await digimonService.letDigimonHungrt()
+	await digimonService.letDigimonHungry()
 })
 
 job.start()

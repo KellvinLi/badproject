@@ -223,9 +223,9 @@ export default class DigimonController {
 		}
 	}
 
-	digimonHungrt = async (req: Request, res: Response) => {
+	digimonHungry = async (req: Request, res: Response) => {
 		try {
-			const update_count = await this.digimonService.letDigimonHungrt()
+			const update_count = await this.digimonService.letDigimonHungry()
 			res.status(200).json({ update_count })
 			return
 		} catch (err) {
