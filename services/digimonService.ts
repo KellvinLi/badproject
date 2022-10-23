@@ -11,7 +11,6 @@ export default class DigimonService {
             where  user_id = ?;`,
 			[userId]
 		)
-		console.log(digimonInfo.rows)
 		return digimonInfo.rows.length > 0 ? digimonInfo.rows[0] : []
 	}
 
@@ -20,51 +19,14 @@ export default class DigimonService {
 			.select('*')
 			.where('player1_id', index)
 			.orWhere('player2_id', index)
-		console.log(battleInfo)
-
 		return battleInfo
 	}
 
 	async getBattleHistoryInfo(index: number) {
-		let battleInfo = (
-			await knex.raw(`
-        with home_win as (
-            select count(*) win_count from battle b  where b.player1_id  = ${index} and b.player1_win = TRUE
-            ),
-            away_win as (
-            select count(*) win_count from battle b  where b.player2_id  = ${index} and b.player2_win = TRUE
-            ),
-            avg_hp as (
-            select (hp/2000::float)*100 as hp from digimon d  where user_id  = ${index} 
-            ),
-            avg_att as (
-            select (att/200::float)*100 as att  from digimon d  where user_id  = ${index} 
-            ),
-            
-            match_history as (
-            select 
-            
-            (select win_count from home_win) + (select win_count from away_win) as total_win_count,
-            (select count(*) win_count from battle b  where b.player1_id =${index} or b.player2_id =${index}) as total_match_count,
-            ((select hp from avg_hp) + (select att from avg_att))/2    as avg_score
-            )
-            select 
-            u.id,
-            u.username,
-            u.email,
-            u.image,
-            avg_score,
-            total_win_count,
-            total_match_count,
-            (total_win_count/total_match_count::float)*100 as win_rate
-            
-            from match_history  
-            join "user" u on u.id = ${index}
-            
-            `)
-		).rows
-		console.log(battleInfo)
-
+		let battleInfo = await knex('battle')
+			.select('*')
+			.where('player1_id', index)
+			.orWhere('player2_id', index)
 		return battleInfo
 	}
 	getAction = async (actionName: string) => {
@@ -73,7 +35,6 @@ export default class DigimonService {
 			.from('action')
 			.where({ action: actionName })
 			.first()
-		console.log({ action })
 		return action
 	}
 	async newDigimon(userId: number, digimonSampleId: number) {
@@ -107,7 +68,6 @@ export default class DigimonService {
 				att: 200
 			})
 			.where('id ', digimonId)
-		console.log({ evoDigimon1_result })
 		return 'Gone'
 	}
 
@@ -119,7 +79,6 @@ export default class DigimonService {
 				att: 200
 			})
 			.where('id ', digimonId)
-		console.log({ evoDigimon1_result })
 		return 'Gone'
 	}
 
@@ -127,7 +86,6 @@ export default class DigimonService {
 		let newDigimon2_result = await knex('digimon_action')
 			.insert([{ digimon_id: digimonId, action_id: actionId }])
 			.returning('*')
-		console.log({ newDigimon2_result })
 		return newDigimon2_result
 	}
 	async digimonActionEat(userId: number, exp: number) {
@@ -137,7 +95,6 @@ export default class DigimonService {
 				happy_exp: exp
 			})
 			.where('user_id', userId)
-		console.log({ digimonActionEat_result })
 		return digimonActionEat_result
 	}
 	async digimonActionClean(userId: number, exp: number) {
@@ -147,7 +104,6 @@ export default class DigimonService {
 				happy_exp: exp
 			})
 			.where('user_id', userId)
-		console.log({ digimonActionEat_result })
 		return digimonActionEat_result
 	}
 
@@ -158,33 +114,23 @@ export default class DigimonService {
 				happy_exp: exp
 			})
 			.where('user_id', userId)
-		console.log({ digimonActionEat_result })
 		return digimonActionEat_result
 	}
 	async createDigimonClean() {
-		console.log('Call Poo -----------------------------------')
-
 		let digimon_ids = await knex.table('digimon').select('id')
 		digimon_ids = digimon_ids.map((obj) => obj.id)
 		digimon_ids = digimon_ids.filter((obj) => {
 			return Math.random() > 0.8
 		})
-
-		console.log('digimon_ids: ', digimon_ids)
 		let update_count = await knex('digimon')
 			.update({
 				clean: false
 			})
 			.whereIn('user_id', digimon_ids)
-		console.log(`Done Poo Count : ${digimon_ids}`)
-
-		// io.emit('new-mark', { message: 'New Mark' })
 		return
 	}
 
 	async letDigimonHungrt() {
-		console.log('Call Hurt')
-
 		let digimon_ids = await knex.table('digimon').select('id', 'hungry')
 		// let new_digimon_ids = digimon_ids.map((obj) => obj.id)
 		// let new_digimon_hungry = digimon_ids.map((obj) => obj.hungry - 1)
@@ -200,8 +146,6 @@ export default class DigimonService {
 		// .whereIn('user_id', new_digimon_ids)
 
 		for (let digimon_id of digimon_ids) {
-			// digimon_id.hungry -= 1
-			console.log(`${digimon_id.hungry}`)
 			await knex('digimon')
 				.update({
 					hungry: (digimon_id.hungry -= 1)
@@ -211,8 +155,6 @@ export default class DigimonService {
 
 		io.emit('new-mark', { message: 'New Mark' })
 		io.emit('new-mark2', { message: 'New Mark' })
-
-		// console.log({ new_digimon_ids })
 
 		return
 	}

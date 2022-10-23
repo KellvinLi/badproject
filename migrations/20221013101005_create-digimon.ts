@@ -8,7 +8,7 @@ export async function up(knex: Knex): Promise<void> {
 			table.string('username', 30).notNullable().unique() //username
 			table.string('password', 80).notNullable()
 			table.string('email', 100).notNullable().unique()
-			table.string('image', 255).notNullable()
+			table.string('image', 255)
 			table.timestamps(false, true)
 		})
 		await txn.schema.createTable('digimon_sample', (table) => {

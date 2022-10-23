@@ -24,14 +24,13 @@ function setup() {
 }
 
 function modelReady() {
-	console.log('Model Ready')
+	// console.log('Model Ready')
 	classifyVideo()
 }
 
 // Get a prediction for the current video frame
 async function classifyVideo() {
 	const predictions = await classifier.classify(gotResult)
-	console.log('predictions:', predictions)
 }
 
 // When we get a result
@@ -40,17 +39,11 @@ async function gotResult(err, results) {
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
 
-	console.log('cameraResult: ' + cameraResult);
-
 	if (!objectList.includes(cameraResult)) {
 		// if camera cannot capture valid objects, will retry infinitely
 		classifyVideo()
-		
 	} else {
-		
-		console.log(cameraResult)
 		const res = await fetch('/digimon/ai_digimon', {
-			
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -58,9 +51,7 @@ async function gotResult(err, results) {
 			body: JSON.stringify({
 				detectionObject: cameraResult
 			})
-			
 		})
-
 
 		// const messageEditRes = await fetch('/message/update', {
 		// 	method: 'DELETE',
@@ -70,13 +61,9 @@ async function gotResult(err, results) {
 		// 	headers: { 'Content-Type': 'application/json' }
 		// })
 
-
-
 		const ml5data = await res.json()
-		console.log('ml5data: ', ml5data)
-			window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
+		window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
 	}
-
 
 	return cameraResult
 }
