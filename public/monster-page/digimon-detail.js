@@ -2,8 +2,6 @@ window.onload = () => {
 	getDigimonInfo()
 }
 
-// getDigimonInfo()
-
 let backbutton = document.querySelector('#back-btn')
 
 console.log('backbutton: ', backbutton)
@@ -23,9 +21,9 @@ console.log('dragonbutton: ', dragonbutton)
 // })
 
 const socket = io.connect()
-socket.on('new-info', (data) => {
+socket.on('new-mark', (data) => {
 	console.log(data)
-	lgetDigimonInfo()
+	getDigimonInfo()
 })
 
 async function getDigimonInfo() {
@@ -116,5 +114,18 @@ async function getDigimonInfo() {
 		</div>
 	`
 }
+// function setSock() {
+// 	socket = io.connect()
+// 	socket.on('you-need-clean', () => {
+// 		// console.log({ data })
+// 		getDigimonInfo()
+// 	})
+// }
+
+// function init() {
+// 	getDigimonInfo()
+// 	setSock()
+// }
 
 getDigimonInfo()
+// setSock()

@@ -1,5 +1,4 @@
 import DigimonService from '../services/digimonService'
-// import SocketIO from 'socket.io';
 import { Request, Response } from 'express'
 
 enum AI_ACTION {
@@ -19,11 +18,10 @@ export default class DigimonController {
 			if (digimon_result.length <= 0) {
 				throw new Error('Digimon not found')
 			}
-			// io.emit("new-info", { info: "New info Added" });
 			res.status(200).json(digimon_result)
 			return
 		} catch (err) {
-			res.status(404).json({
+			res.status(400).json({
 				message: err.message
 			})
 
@@ -41,7 +39,7 @@ export default class DigimonController {
 			console.log(battle_result)
 			return
 		} catch (err) {
-			res.status(404).send(err)
+			res.status(400).send(err)
 			return
 		}
 	}
@@ -55,7 +53,7 @@ export default class DigimonController {
 			console.log(battleHistory_result)
 			return
 		} catch (err) {
-			res.status(404).send(err)
+			res.status(400).send(err)
 			return
 		}
 	}
@@ -85,7 +83,7 @@ export default class DigimonController {
 			}
 		} catch (err) {
 			console.log(err)
-			res.status(404).json({
+			res.status(400).json({
 				message: err.message
 			})
 			return
@@ -130,10 +128,10 @@ export default class DigimonController {
 
 	aiDigimon = async (req: Request, res: Response) => {
 		try {
-			let userId = req.session.user?.userId 
-			if (!userId){
+			let userId = req.session.user?.userId
+			if (!userId) {
 				res.status(401).json({
-					message:'Not yet logged in'
+					message: 'Not yet logged in'
 				})
 				return
 			}
@@ -145,6 +143,8 @@ export default class DigimonController {
 			console.log(checkDigimonInfo.att)
 			console.log(checkDigimonInfo.hp)
 			console.log(checkDigimonInfo.clean)
+			const evo: number = checkDigimonInfo.evo
+			let digimonName: string = checkDigimonInfo.name
 
 			let happyExp: number = checkDigimonInfo.happy_exp
 			let hp: number = checkDigimonInfo.hp
@@ -154,11 +154,21 @@ export default class DigimonController {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
+
+			if (evo == 1 || digimonName == 'Agumon' || exp >= 200) {
+				const evoigimon_result = await this.digimonService.evoDigimon1(
+					checkDigimonInfo.id
+				)
+			} else if (evo == 1 || digimonName == 'Gabumon' || exp >= 200) {
+				const evoigimon_result = await this.digimonService.evoDigimon2(
+					checkDigimonInfo.id
+				)
+			}
 			const detectionObject = req.body.detectionObject
 
-			if (!Object.values(AI_ACTION).includes(detectionObject)){
+			if (!Object.values(AI_ACTION).includes(detectionObject)) {
 				res.status(401).json({
-					message:"Invalid detection"
+					message: 'Invalid detection'
 				})
 				return
 			}
@@ -208,7 +218,7 @@ export default class DigimonController {
 			res.status(200).json({ update_count })
 			return
 		} catch (err) {
-			res.status(404).send(err)
+			res.status(400).send(err)
 			return
 		}
 	}
@@ -219,7 +229,7 @@ export default class DigimonController {
 			res.status(200).json({ update_count })
 			return
 		} catch (err) {
-			res.status(404).send(err)
+			res.status(400).send(err)
 			return
 		}
 	}

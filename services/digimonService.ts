@@ -1,4 +1,4 @@
-import { knex } from '../app'
+import { io, knex } from '../app'
 
 export default class DigimonService {
 	constructor() {}
@@ -129,7 +129,7 @@ export default class DigimonService {
 			})
 			.where('user_id', userId)
 		console.log({ digimonActionEat_result })
-		return
+		return digimonActionEat_result
 	}
 	async digimonActionClean(userId: number, exp: number) {
 		let digimonActionEat_result = await knex('digimon')
@@ -139,7 +139,7 @@ export default class DigimonService {
 			})
 			.where('user_id', userId)
 		console.log({ digimonActionEat_result })
-		return
+		return digimonActionEat_result
 	}
 
 	async digimonActionHp(userId: number, exp: number, updataHp: number) {
@@ -150,7 +150,7 @@ export default class DigimonService {
 			})
 			.where('user_id', userId)
 		console.log({ digimonActionEat_result })
-		return
+		return digimonActionEat_result
 	}
 	async createDigimonClean() {
 		console.log('Call Poo -----------------------------------')
@@ -169,25 +169,38 @@ export default class DigimonService {
 			.whereIn('user_id', digimon_ids)
 		console.log(`Done Poo Count : ${digimon_ids}`)
 
-		return update_count
+		// io.emit('new-mark', { message: 'New Mark' })
+		return
 	}
 
 	async letDigimonHungrt() {
 		console.log('Call Hurt')
 
 		let digimon_ids = await knex.table('digimon').select('id', 'hungry')
-		let new_digimon_ids = digimon_ids.map((obj) => obj.id)
-		console.log({ digimon_ids })
+		// let new_digimon_ids = digimon_ids.map((obj) => obj.id)
+		// let new_digimon_hungry = digimon_ids.map((obj) => obj.hungry - 1)
+		// console.log({ digimon_ids })
+		// console.log({ new_digimon_ids })
+		// console.log({ new_digimon_hungry })
+		// console.log({ digimon_ids })
+
+		// let update_count = await knex('digimon')
+		// .update({
+		// 	hungry:
+		// })
+		// .whereIn('user_id', new_digimon_ids)
+
 		for (let digimon_id of digimon_ids) {
-			digimon_id.hungry -= 1
+			// digimon_id.hungry -= 1
 			console.log(`${digimon_id.hungry}`)
 			await knex('digimon')
 				.update({
-					hungry: digimon_id.hungry
+					hungry: (digimon_id.hungry -= 1)
 				})
-				.whereIn('user_id', new_digimon_ids)
+				.where('user_id', digimon_id.id)
 		}
-		digimon_ids = digimon_ids.map((obj) => obj.id)
+
+		io.emit('new-mark', { message: 'New Mark' })
 
 		// console.log({ new_digimon_ids })
 
