@@ -155,15 +155,20 @@ export default class DigimonController {
 				return
 			}
 
-			if (evo == 1 || digimonName == 'Agumon' || exp >= 200) {
-				const evoigimon_result = await this.digimonService.evoDigimon1(
-					checkDigimonInfo.id
-				)
-			} else if (evo == 1 || digimonName == 'Gabumon' || exp >= 200) {
-				const evoigimon_result = await this.digimonService.evoDigimon2(
-					checkDigimonInfo.id
-				)
+			if (happyExp === 200) {
+				if (evo == 1 || digimonName == 'Agumon') {
+					const evoigimon_result =
+						await this.digimonService.evoDigimon1(
+							checkDigimonInfo.id
+						)
+				} else if (evo == 1 || digimonName == 'Gabumon') {
+					const evoigimon_result =
+						await this.digimonService.evoDigimon2(
+							checkDigimonInfo.id
+						)
+				}
 			}
+
 			const detectionObject = req.body.detectionObject
 
 			if (!Object.values(AI_ACTION).includes(detectionObject)) {
