@@ -37,7 +37,6 @@ digimonRoutes.put('/digimon_hungrt', digimonController.digimonHungrt)
 let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {
 	await digimonService.createDigimonClean()
 	await digimonService.letDigimonHungrt()
-	// io.emit('you need clean', { message: 'clean' })
 })
 
 job.start()

@@ -87,6 +87,17 @@ export default class DigimonService {
 		let newDigimon1_result = await knex('digimon')
 			.insert([{ user_id: userId, digimon_sample_id: digimonSampleId }])
 			.returning('*')
+
+		/* TODO: get a full result like getDigimonInfo */
+		// let result = await knex
+
+		let result = await knex('digimon')
+			.join('digimon_sample', 'digimon_name', 'digimon_image')
+			.where({'id ': userId})
+			console.log(result)
+
+
+
 		return newDigimon1_result
 	}
 

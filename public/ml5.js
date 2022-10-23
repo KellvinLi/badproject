@@ -31,6 +31,7 @@ function modelReady() {
 // Get a prediction for the current video frame
 async function classifyVideo() {
 	const predictions = await classifier.classify(gotResult)
+	console.log('predictions:', predictions)
 }
 
 // When we get a result
@@ -38,9 +39,11 @@ async function gotResult(err, results) {
 	// The results are in an array ordered by confidence.
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
-	console.log(cameraResult)
+
+	console.log('cameraResult: ' + cameraResult);
+
 	if (!objectList.includes(cameraResult)) {
-		
+		// if camera cannot capture valid objects, will retry infinitely
 		classifyVideo()
 		
 	} else {
@@ -70,8 +73,8 @@ async function gotResult(err, results) {
 
 
 		const ml5data = await res.json()
-		console.log(ml5data)
-			window.location.href = '/digimon.html'
+		console.log('ml5data: ', ml5data)
+			window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
 	}
 
 
