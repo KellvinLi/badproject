@@ -58,7 +58,7 @@ export default class UserController {
 			console.log(req.session.user.loggedIn)
 			console.log(req.session.user.username)
 			req.session.save()
-			res.redirect('/')
+			res.redirect('/digimon.html')
 
 			// res.status(200).json({
 			//     message: "Register Successful"
@@ -218,6 +218,4 @@ export default class UserController {
 			return
 		}
 	}
-
-	
 }

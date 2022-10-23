@@ -93,10 +93,8 @@ export default class DigimonService {
 
 		let result = await knex('digimon')
 			.join('digimon_sample', 'digimon_name', 'digimon_image')
-			.where({'id ': userId})
-			console.log(result)
-
-
+			.where({ 'id ': userId })
+		console.log(result)
 
 		return newDigimon1_result
 	}
@@ -212,6 +210,7 @@ export default class DigimonService {
 		}
 
 		io.emit('new-mark', { message: 'New Mark' })
+		io.emit('new-mark2', { message: 'New Mark' })
 
 		// console.log({ new_digimon_ids })
 
