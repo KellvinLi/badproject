@@ -31,6 +31,7 @@ camerabutton.addEventListener('click', function (e) {
 trigger.addEventListener('click', toggleModal)
 
 async function run() {
+	getDigimonInfo()
 	let usingImg = ''
 	const res = await fetch('/digimon/digimon_info')
 
@@ -49,9 +50,133 @@ async function run() {
 		}
 	}
 
-	/* render status bar */
-	let barDetail = document.querySelector('#bar-detail')
-	barDetail.innerHTML = /* HTML */ `
+    // apply the latest visual changes to the sprite
+    // (draw if canvas, update attribute if DOM);
+    sp.update();
+
+    // change the offset of the image in the sprite
+    // (this works the opposite way of a CSS background)
+    // sp.offset(0, 0);
+
+    // various transformations
+    console.log(walkingContainer.getBoundingClientRect())
+    console.log(window.innerHeight)
+    sp.move(window.innerWidth / 4, -200);
+    // sp.rotate(3.14 / 4);
+    sp.scale(4);
+    // sp.setOpacity(0.8);
+
+    sp.update();
+
+    let currentAnimation = standingAnimation
+    let currentX = currentAnimation.offset.x
+    let currentY = currentAnimation.offset.y
+    let token = sp.dom
+    // let walkingContainerInvertedLimit = walkingContainer.getBoundingClientRect().x + walkingContainer.getBoundingClientRect().width - 800
+    let walkingContainerInvertedLimit = window.innerWidth
+    let walkToRight = true
+
+    let leftToRight = setInterval(() => {
+      let tokenRightLimit = token.getBoundingClientRect().x + token.getBoundingClientRect().width
+      sp.size(currentAnimation.size.width, currentAnimation.size.height);
+      sp.offset(currentX, currentY);
+      // console.log('tokenRightLimit = ', tokenRightLimit)
+      // console.log('walkingContainerInvertedLimit = ', walkingContainerInvertedLimit)
+
+
+      if (tokenRightLimit > 1200) {
+        walkToRight = false
+      }
+      // console.log("tokenRightLimit: ", tokenRightLimit)
+      if (tokenRightLimit < 400) {
+        // console.log('walking to right')
+        walkToRight = true
+      }
+
+
+      let moveX = walkToRight ? currentAnimation.velocityX : -currentAnimation.velocityX
+      if (walkToRight) {
+        sp.setXScale(4)
+      } else {
+        sp.setXScale(-4)
+      }
+      // if (count < 20 ) {
+      //     sp.rotate(3.14 / 4);
+      // }
+      // scene.Sprite(imgUrl2);
+
+      sp.move(moveX, currentAnimation.velocityY);
+      sp.update();
+      currentX += currentAnimation.size.width
+      if (currentX >= currentAnimation.animationSize + currentAnimation.offset.x) {
+        currentX = currentAnimation.offset.x
+      }
+    }, 300)
+
+
+    // document.querySelector("#start-end-btn").addEventListener("click", () => {
+    //     console.log("hi")
+    // })
+
+    walkingContainer.addEventListener("click", () => {
+      if (currentAnimation == walkingAnimation) {
+        currentAnimation = standingAnimation
+        currentX = currentAnimation.offset.x
+      } else {
+        currentAnimation = walkingAnimation
+        currentX = currentAnimation.offset.x
+      }
+    })
+
+  };
+
+  let dragonbutton = document.querySelector("#dragon-btn");
+
+  console.log('dragonbutton: ', dragonbutton);
+
+  dragonbutton.addEventListener("click", function (e) {
+
+    window.location.href = `./monster-page/digimon-detail.html`;
+
+  })
+
+
+
+window.onload = () => {
+  init()
+}
+
+function init() {
+  document.querySelector('#logout-btn')
+        .addEventListener('click', logout)
+} 
+
+async function logout() {
+  const res = await fetch(`/user/logout`, {
+      method: "POST"
+  })
+  console.log(res)
+  if (res.ok) {
+      window.location.href = '/'
+  }
+}
+
+async function getDigimonInfo() {
+  console.log('getDigimonInfo')
+
+  let res = await fetch('/digimon/digimon_info');
+  let data = await res.json();
+  console.log('getDigimonInfo', data)
+  let digimon = {
+     hp : 200,
+     happy_exp: 200,
+     att: 70,
+     digimon:3,
+     hungry: 100,
+     evo: "EVO 1"
+  }
+  let barDetail = document.querySelector('#bar-detail');
+  barDetail.innerHTML = /* HTML */`
     <div class="d-flex flex-align-center bar">
       <div class="hp">
         <div class="hp-text">HP</div>
@@ -143,109 +268,112 @@ async function run() {
 			console.log('resJson: ', resJson)
 			monsterLabel.src = `/assets/image/${data.name}1.png`
 		})
-	} /* if (data.name != 'Agumon') */ else {
+	}
+
+	if (data.name != 'Agumon') {
 		monsterLabel.src = `/assets/image/${data.name}1.png`
+		return
 	}
 
 	/* canvas - walking Agumon */
-	// let walkingContainer = document.querySelector('#digimon-canvas-container')
-	// let yContainerInvertedLimit = walkingContainer.getBoundingClientRect().y + walkingContainer.getBoundingClientRect() - 200
-	// console.log("run2")
+	let walkingContainer = document.querySelector('#digimon-canvas-container')
+	let yContainerInvertedLimit = walkingContainer.getBoundingClientRect().y + walkingContainer.getBoundingClientRect() - 200
+	console.log("run2")
 
-	// let scene = sjs.Scene({ w: window.innerWidth, h: walkingContainer });
-	// scene.loadImages([imgUrl], function () {
-	//   const standingAnimation = {
-	//     size: { width: 44, height: 47 },
-	//     offset: { x: 0, y: 0 },
-	//     velocityX: 0, velocityY: 0, animationSize: 44 * 1,
-	//   }
-	//   const walkingAnimation = {
-	//     size: { width: 44, height: 47 },
-	//     offset: { x: 96, y: 0 },
-	//     velocityX: 100, velocityY: 0, animationSize: 44 * 3,
-	//   }
-	//   // create the Sprite object;
-	//   var sp = scene.Sprite(imgUrl);
+	let scene = sjs.Scene({ w: window.innerWidth, h: walkingContainer });
+	scene.loadImages([imgUrl], function () {
+	  const standingAnimation = {
+	    size: { width: 44, height: 47 },
+	    offset: { x: 0, y: 0 },
+	    velocityX: 0, velocityY: 0, animationSize: 44 * 1,
+	  }
+	  const walkingAnimation = {
+	    size: { width: 44, height: 47 },
+	    offset: { x: 96, y: 0 },
+	    velocityX: 100, velocityY: 0, animationSize: 44 * 3,
+	  }
+	  // create the Sprite object;
+	  var sp = scene.Sprite(imgUrl);
 
-	//   // change the visible size of the sprite
-	//   sp.size(standingAnimation.size.width, standingAnimation.size.height);
+	  // change the visible size of the sprite
+	  sp.size(standingAnimation.size.width, standingAnimation.size.height);
 
-	//   // apply the latest visual changes to the sprite
-	//   // (draw if canvas, update attribute if DOM);
-	//   sp.update();
+	  // apply the latest visual changes to the sprite
+	  // (draw if canvas, update attribute if DOM);
+	  sp.update();
 
-	//   // change the offset of the image in the sprite
-	//   // (this works the opposite way of a CSS background)
-	//   // sp.offset(0, 0);
+	  // change the offset of the image in the sprite
+	  // (this works the opposite way of a CSS background)
+	  // sp.offset(0, 0);
 
-	//   // various transformations
-	//   console.log(walkingContainer.getBoundingClientRect())
-	//   console.log(window.innerHeight)
-	//   sp.move(window.innerWidth / 4, -200);
-	//   // sp.rotate(3.14 / 4);
-	//   sp.scale(4);
-	//   // sp.setOpacity(0.8);
+	  // various transformations
+	  console.log(walkingContainer.getBoundingClientRect())
+	  console.log(window.innerHeight)
+	  sp.move(window.innerWidth / 4, -200);
+	  // sp.rotate(3.14 / 4);
+	  sp.scale(4);
+	  // sp.setOpacity(0.8);
 
-	//   sp.update();
+	  sp.update();
 
-	//   let currentAnimation = standingAnimation
-	//   let currentX = currentAnimation.offset.x
-	//   let currentY = currentAnimation.offset.y
-	//   let token = sp.dom
-	//   // let walkingContainerInvertedLimit = walkingContainer.getBoundingClientRect().x + walkingContainer.getBoundingClientRect().width - 800
-	//   let walkingContainerInvertedLimit = window.innerWidth
-	//   let walkToRight = true
+	  let currentAnimation = standingAnimation
+	  let currentX = currentAnimation.offset.x
+	  let currentY = currentAnimation.offset.y
+	  let token = sp.dom
+	  // let walkingContainerInvertedLimit = walkingContainer.getBoundingClientRect().x + walkingContainer.getBoundingClientRect().width - 800
+	  let walkingContainerInvertedLimit = window.innerWidth
+	  let walkToRight = true
 
-	//   let leftToRight = setInterval(() => {
-	//     let tokenRightLimit = token.getBoundingClientRect().x + token.getBoundingClientRect().width
-	//     sp.size(currentAnimation.size.width, currentAnimation.size.height);
-	//     sp.offset(currentX, currentY);
-	//     // console.log('tokenRightLimit = ', tokenRightLimit)
-	//     // console.log('walkingContainerInvertedLimit = ', walkingContainerInvertedLimit)
+	  let leftToRight = setInterval(() => {
+	    let tokenRightLimit = token.getBoundingClientRect().x + token.getBoundingClientRect().width
+	    sp.size(currentAnimation.size.width, currentAnimation.size.height);
+	    sp.offset(currentX, currentY);
+	    // console.log('tokenRightLimit = ', tokenRightLimit)
+	    // console.log('walkingContainerInvertedLimit = ', walkingContainerInvertedLimit)
 
-	//     if (tokenRightLimit > 1200) {
-	//       walkToRight = false
-	//     }
-	//     // console.log("tokenRightLimit: ", tokenRightLimit)
-	//     if (tokenRightLimit < 400) {
-	//       // console.log('walking to right')
-	//       walkToRight = true
-	//     }
+	    if (tokenRightLimit > 1200) {
+	      walkToRight = false
+	    }
+	    // console.log("tokenRightLimit: ", tokenRightLimit)
+	    if (tokenRightLimit < 400) {
+	      // console.log('walking to right')
+	      walkToRight = true
+	    }
 
-	//     let moveX = walkToRight ? currentAnimation.velocityX : -currentAnimation.velocityX
-	//     if (walkToRight) {
-	//       sp.setXScale(4)
-	//     } else {
-	//       sp.setXScale(-4)
-	//     }
-	//     // if (count < 20 ) {
-	//     //     sp.rotate(3.14 / 4);
-	//     // }
-	//     // scene.Sprite(imgUrl2);
+	    let moveX = walkToRight ? currentAnimation.velocityX : -currentAnimation.velocityX
+	    if (walkToRight) {
+	      sp.setXScale(4)
+	    } else {
+	      sp.setXScale(-4)
+	    }
+	    // if (count < 20 ) {
+	    //     sp.rotate(3.14 / 4);
+	    // }
+	    // scene.Sprite(imgUrl2);
 
-	//     sp.move(moveX, currentAnimation.velocityY);
-	//     sp.update();
-	//     currentX += currentAnimation.size.width
-	//     if (currentX >= currentAnimation.animationSize + currentAnimation.offset.x) {
-	//       currentX = currentAnimation.offset.x
-	//     }
-	//   }, 300)
+	    sp.move(moveX, currentAnimation.velocityY);
+	    sp.update();
+	    currentX += currentAnimation.size.width
+	    if (currentX >= currentAnimation.animationSize + currentAnimation.offset.x) {
+	      currentX = currentAnimation.offset.x
+	    }
+	  }, 300)
 
-	//   // document.querySelector("#start-end-btn").addEventListener("click", () => {
-	//   //     console.log("hi")
-	//   // })
+	  // document.querySelector("#start-end-btn").addEventListener("click", () => {
+	  //     console.log("hi")
+	  // })
 
-	//   walkingContainer.addEventListener("click", () => {
-	//     if (currentAnimation == walkingAnimation) {
-	//       currentAnimation = standingAnimation
-	//       currentX = currentAnimation.offset.x
-	//     } else {
-	//       currentAnimation = walkingAnimation
-	//       currentX = currentAnimation.offset.x
-	//     }
-	//   })
+	  walkingContainer.addEventListener("click", () => {
+	    if (currentAnimation == walkingAnimation) {
+	      currentAnimation = standingAnimation
+	      currentX = currentAnimation.offset.x
+	    } else {
+	      currentAnimation = walkingAnimation
+	      currentX = currentAnimation.offset.x
+	    }
+	  })
 
-	// });
+	});
 }
 
 window.onload = () => {
@@ -283,3 +411,51 @@ function toggleModal() {
 closeButton.addEventListener('click', toggleModal)
 
 run()
+
+// console.log(1)
+// import {gotResult} from "./ml5"
+// console.log(2)
+
+// console.log(gotResult()); 
+// console.log(3)
+
+// localStorage.setItem('test', 'text from beach')
+
+// if (localStorage==!null){
+//   alert( localStorage.getItem('test') );
+// }
+
+// localStorage.clear();
+
+
+// if(!alertify.myAlert){
+//   //define a new dialog
+//   alertify.dialog('myAlert',function(){
+//     return{
+//       main:function(message){
+//         this.message = message;
+//       },
+//       setup:function(){
+//           return { 
+//             buttons:[{text: "cool!", key:27/*Esc*/}],
+//             focus: { element:0 }
+//           };
+//       },
+//       prepare:function(){
+//         this.setContent(this.message);
+//       }
+//   }});
+// }
+// //launch it.
+// alertify.myAlert("Browser dialogs made easy!");
+
+// if(localStorage.getItem('test') ==null){
+//   return
+// }else{
+//   alertify
+//   .alert(`Object detected: ${localStorage.getItem('test')}`, function(){
+//     alertify.message('Update completed');
+//   });
+// }
+
+
