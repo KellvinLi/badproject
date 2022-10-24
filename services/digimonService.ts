@@ -131,33 +131,31 @@ export default class DigimonService {
 	}
 
 	async letDigimonHungry() {
-		console.log('Call Hurt')
+		console.log('letDigimonHungry triggered!')
 
 		let digimon_ids = await knex.table('digimon').select('id', 'hungry')
-		// let new_digimon_ids = digimon_ids.map((obj) => obj.id)
-		// let new_digimon_hungry = digimon_ids.map((obj) => obj.hungry - 1)
-		// console.log({ digimon_ids })
-		// console.log({ new_digimon_ids })
-		// console.log({ new_digimon_hungry })
-		// console.log({ digimon_ids })
 
-		// let update_count = await knex('digimon')
-		// .update({
-		// 	hungry:
-		// })
-		// .whereIn('user_id', new_digimon_ids)
+		let socketIds = Array.from(io.sockets.sockets.keys())
 
 		for (let digimon_id of digimon_ids) {
 			await knex('digimon')
 				.update({
 					hungry: (digimon_id.hungry -= 1)
 				})
-				.where('user_id', digimon_id.id)
+				.where('id', digimon_id.id)
+		}
+
+		for(let socketId of socketIds) {
+			io.to(socketId).emit('digimon-hungry', {hungry: 1});
 		}
 
 		io.emit('new-mark', { message: 'New Mark' })
-		io.emit('new-mark2', { message: 'New Mark' })
+		io.emit('new-mark2', { message: 'New Mark 2' })
+	
+		io.emit('digimon-hungry', { message: 'Digimon Hungry'})
 
+		
+		
 		return
 	}
 }
