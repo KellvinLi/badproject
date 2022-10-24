@@ -130,7 +130,9 @@ export default class DigimonService {
 		return
 	}
 
-	async letDigimonHungrt() {
+	async letDigimonHungry() {
+		console.log('Call Hurt')
+
 		let digimon_ids = await knex.table('digimon').select('id', 'hungry')
 		// let new_digimon_ids = digimon_ids.map((obj) => obj.id)
 		// let new_digimon_hungry = digimon_ids.map((obj) => obj.hungry - 1)
