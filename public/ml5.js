@@ -46,11 +46,6 @@ async function classifyVideo() {
 		// if camera cannot capture valid objects, will retry infinitely
 		classifyVideo()
 	} else {
-<<<<<<< HEAD
-		alert(cameraResult)
-		console.log('cameraResult ===> ' + cameraResult)
-=======
->>>>>>> cc0fd25201911dfb241f7d75c5e039d6bdb14144
 		const res = await fetch('/digimon/ai_digimon', {
 			method: 'POST',
 			headers: {
@@ -61,11 +56,9 @@ async function classifyVideo() {
 			})
 		})
 
-		const ml5data = await res.json()
-		// document.getElementById("objectDetected").innerHTML = ml5data.detectionObject;
+		// const ml5data = await res.json()
+		
 		alert(cameraResult)
-		// console.log('ml5data => ' + ml5data)
-		// function camResult()
 		window.location.href = '/digimon.html' 
 		if (cameraResult){
 			localStorage.setItem('test', cameraResult);			
