@@ -32,6 +32,7 @@ body {
   bottom: 50px;
   left: 40%;
   height: 300px;
+  cursor: pointer;
   animation-name: move;
   /* display: none; */
 }
