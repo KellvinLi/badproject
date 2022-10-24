@@ -143,12 +143,12 @@ export default class DigimonController {
 				return
 			}
 			if (happyExp === 200) {
-				if (evo == 1 || digimonName == 'Agumon') {
+				if (evo === 1 && digimonName === 'Agumon') {
 					const evoigimon_result =
 						await this.digimonService.evoDigimon1(
 							checkDigimonInfo.id
 						)
-				} else if (evo == 1 || digimonName == 'Gabumon') {
+				} else if (evo === 1 && digimonName === 'Gabumon') {
 					const evoigimon_result =
 						await this.digimonService.evoDigimon2(
 							checkDigimonInfo.id
