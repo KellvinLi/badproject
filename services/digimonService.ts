@@ -53,8 +53,9 @@ export default class DigimonService {
 		// let result = await knex
 
 		let result = await knex('digimon')
-			.join('digimon_sample', 'digimon_name', 'digimon_image')
-			.where({ 'id ': userId })
+		.select(["digimon.*", "digimon_sample.name", "digimon_sample.image"])
+			.join('digimon_sample', 'digimon.digimon_sample_id', 'digimon_sample.id')
+			.where({ 'digimon.user_id ': userId })
 		console.log(result)
 
 		return newDigimon1_result
