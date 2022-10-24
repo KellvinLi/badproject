@@ -61,7 +61,6 @@ async function classifyVideo() {
 			})
 		})
 
-<<<<<<< HEAD
 		const ml5data = await res.json()
 		// document.getElementById("objectDetected").innerHTML = ml5data.detectionObject;
 		alert(cameraResult)
@@ -72,20 +71,6 @@ async function classifyVideo() {
 			localStorage.setItem('test', cameraResult);			
 		}
 	}
-=======
-		// const messageEditRes = await fetch('/message/update', {
-		// 	method: 'DELETE',
-		// 	body: JSON.stringify({
-		// 		index: editIndex
-		// 	}), //記得JSON出寫返headers
-		// 	headers: { 'Content-Type': 'application/json' }
-		// })
-
-		const ml5data = await res.json()
-		window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
-	}
-
->>>>>>> cc0fd25201911dfb241f7d75c5e039d6bdb14144
 	return cameraResult
 }
 
