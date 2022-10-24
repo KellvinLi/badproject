@@ -4,16 +4,13 @@ async function login() {
 		event.preventDefault()
 
 		const formElement = event.target
-		// console.log(formElement)
+
 		const username = formElement.InputUsername.value
 		const password = formElement.InputPassword.value
-		console.log(username)
+
 		const loginText = document.querySelector('.login-text')
 
 		const formData = new FormData(formElement)
-		// formData.append('username', username)
-		// formData.append('password', password)
-		// console.log(formData.username)
 
 		const res = await fetch('/user/login', {
 			method: 'POST',
@@ -56,10 +53,7 @@ async function register() {
 		if (res.ok) {
 			console.log('Register successfully')
 			registerText.innerHTML = 'Sign-up successful!'
-			setTimeout(
-				() => (window.location.href = '/'),
-				1000
-			)
+			setTimeout(() => (window.location.href = '/'), 1000)
 			loginText.style.fontSize = '1.3rem'
 			// window.location.href = '/registerAndLogin.html'
 		} else {

@@ -24,7 +24,7 @@ function setup() {
 }
 
 function modelReady() {
-	console.log('Model Ready')
+	// console.log('Model Ready')
 	classifyVideo()
 }
 
@@ -41,16 +41,17 @@ async function classifyVideo() {
 	// The results are in an array ordered by confidence.
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
-	console.log(cameraResult)
+
 	if (!objectList.includes(cameraResult)) {
-		
+		// if camera cannot capture valid objects, will retry infinitely
 		classifyVideo()
-		
 	} else {
+<<<<<<< HEAD
 		alert(cameraResult)
 		console.log('cameraResult ===> ' + cameraResult)
+=======
+>>>>>>> cc0fd25201911dfb241f7d75c5e039d6bdb14144
 		const res = await fetch('/digimon/ai_digimon', {
-			
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -58,9 +59,9 @@ async function classifyVideo() {
 			body: JSON.stringify({
 				detectionObject: cameraResult
 			})
-			
 		})
 
+<<<<<<< HEAD
 		const ml5data = await res.json()
 		// document.getElementById("objectDetected").innerHTML = ml5data.detectionObject;
 		alert(cameraResult)
@@ -71,6 +72,20 @@ async function classifyVideo() {
 			localStorage.setItem('test', cameraResult);			
 		}
 	}
+=======
+		// const messageEditRes = await fetch('/message/update', {
+		// 	method: 'DELETE',
+		// 	body: JSON.stringify({
+		// 		index: editIndex
+		// 	}), //記得JSON出寫返headers
+		// 	headers: { 'Content-Type': 'application/json' }
+		// })
+
+		const ml5data = await res.json()
+		window.location.href = `/digimon.html?digimonId=${1}&actionId=${2}`
+	}
+
+>>>>>>> cc0fd25201911dfb241f7d75c5e039d6bdb14144
 	return cameraResult
 }
 

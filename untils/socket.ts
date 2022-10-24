@@ -1,29 +1,10 @@
-// import express from "express";
-// import { Server as SocketIO } from "socket.io";
-// import { sessionMiddleware } from "./middleare";
-// export let io: SocketIO;
-// export function setIO(ioFromServer: SocketIO) {
-//     // console.log("io 4: ", io)
-//     io = ioFromServer;
-//     io.use((socket, next) => {
-//         let req = socket.request as express.Request;
-//         let res = req.res as express.Response;
-//         sessionMiddleware(req, res, next as express.NextFunction);
-//     });
+import socketIO from 'socket.io'
 
-//     io.on("connection", function (socket) {
-//         const socketId = socket.id;
-//         console.log("socketId: ", socketId, " is connected");
-//         let user = socket.request["session"]["user"];
-//         if (user?.username) {
-//             socket.join(user.username);
-//             console.log(user.username, " room created");
-//         }
-//     });
-// }
+let io: socketIO.Server
 
-// import SockerIO from "socket.io";
-
-// export let io : SocketIO.Server
-
-// export function setSocketIO
+export function setSockIO(value: socketIO.Server) {
+	io = value
+	io.on('connection', function (socket) {
+		console.log(`${socket.id} is online`)
+	})
+}
