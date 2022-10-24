@@ -99,15 +99,6 @@ app.use(express.static('error'))
 // app.use((req, res, next) => {
 //     res.sendFile(path.resolve("./error/404.html"))
 // })
-// io.on('connection', function (socket) {
-// 	console.log('new socket connected: ', socket.id)
-
-// 	// 如果無login ， 就連socket 都無得用
-// 	// if (!socket.request['session'].user) {
-// 	// 	socket.disconnect()
-// 	// }
-
-// })
 
 server.listen(8080, () => {
 	console.log('listening on port 8080')

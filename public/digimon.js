@@ -21,7 +21,6 @@ console.log('digimonId: ', digimonId)
 
 const socket = io.connect()
 socket.on('new-mark2', (data) => {
-	console.log(data)
 	run()
 })
 
@@ -82,6 +81,9 @@ async function run() {
         </div>
       </div>
     </div>
+	<div class="poo-icon-container" id="poo_ar">
+	${data.clean ? '' : ` <img class="poo-label" src="/assets/image/poo.png"/>`}
+        </div>
   `
 	// below code for QR code
 	const wrapper = document.querySelector('.wrapper'),
@@ -89,6 +91,15 @@ async function run() {
 		generateBtn = wrapper.querySelector('.form button'),
 		qrImg = wrapper.querySelector('.qr-code img')
 	let preValue
+
+	// let pooContainer = document.querySelector('#poo_arr')
+	// pooContainer.innerHTML = 111
+
+	// ${
+	// 	data.clean
+	// 		? ''
+	// 		: ` <img class="poo-label" src="/assets/image/poo.png"/>`
+	// }
 
 	console.log('adding event listener on generateBtn')
 	generateBtn.addEventListener('click', () => {

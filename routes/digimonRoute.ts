@@ -40,6 +40,3 @@ let job = cron.schedule('* * * * *', async function jobYouNeedToExecute() {
 })
 
 job.start()
-
-// //delete digimon
-// digimonRoutes.delete('/delete_digimon', digimonController.deleteDigimon)

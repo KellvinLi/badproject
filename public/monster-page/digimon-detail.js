@@ -22,7 +22,6 @@ console.log('dragonbutton: ', dragonbutton)
 
 const socket = io.connect()
 socket.on('new-mark', (data) => {
-	console.log(data)
 	getDigimonInfo()
 })
 
@@ -114,18 +113,5 @@ async function getDigimonInfo() {
 		</div>
 	`
 }
-// function setSock() {
-// 	socket = io.connect()
-// 	socket.on('you-need-clean', () => {
-// 		// console.log({ data })
-// 		getDigimonInfo()
-// 	})
-// }
-
-// function init() {
-// 	getDigimonInfo()
-// 	setSock()
-// }
 
 getDigimonInfo()
-// setSock()

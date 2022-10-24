@@ -26,15 +26,8 @@ export default class UserController {
 				}
 			)
 			const GoogleFile = await fetchRes.json()
-			// const users = userService.func(GoogleFile.email)
-			console.log(GoogleFile)
-
 			const users = await userService.checkUserEmail(GoogleFile.email)
-
 			let user = users[0]
-
-			console.log(user)
-
 			// get random 32 bit string
 			// 如果 user 不存在，馬上 create 一個
 			if (!user) {
@@ -47,25 +40,18 @@ export default class UserController {
 					GoogleFile.picture
 				)
 			}
-			console.log(user)
-
 			req.session.user = {}
 			req.session.user.loggedIn = true
 			req.session.user.username = user.username
 			req.session.user.userId = user.id
 			req.session.user.useremail = user.email
-			console.log(user.id)
-			console.log(req.session.user.loggedIn)
-			console.log(req.session.user.username)
 			req.session.save()
 			res.redirect('/digimon.html')
 
-			// res.status(200).json({
-			//     message: "Register Successful"
-			// })
+			res.status(200).json({
+				message: 'Register Successful'
+			})
 		} catch (error) {
-			console.log(error)
-			// res.redirect('/index.html?error=google login fail')
 			res.status(401).json({ message: 'Register Unsuccessful' })
 		}
 	}
@@ -82,7 +68,6 @@ export default class UserController {
 		}
 		try {
 			let { fields, files } = await registerPromise(req)
-
 			let { username, password, confirmPassword, email } = fields
 			let userImage
 			let userImageResult
@@ -93,9 +78,6 @@ export default class UserController {
 					: files.userimage
 				userImageResult = userImage.newFilename
 			}
-			console.log({ username, password, confirmPassword, email })
-			console.log('userimage: ', userImageResult)
-
 			if (!username || !email || !password) {
 				res.status(401).json({ message: 'Incorrect email or password' })
 				return
@@ -108,8 +90,6 @@ export default class UserController {
 			}
 
 			let hashedPassword = await hashPassword(password)
-			console.log(hashedPassword)
-
 			let newUser = await userService.registerUser(
 				username,
 				email,
@@ -118,13 +98,9 @@ export default class UserController {
 					? userImageResult
 					: 'deafult_profile_icon.png'
 			)
-			// await client.query(`INSERT INTO users (username,useremail,password,userimage)
-			// VALUES ($1,$2,$3,$4) RETURNING id`,
-			//     [username, useremail, hashedPassword, Object.keys(files).length > 0 ? userImageResult : null, false])
-			console.log(newUser)
+
 			res.json({ message: 'User created' })
 		} catch (err) {
-			console.log(err)
 			res.status(401).json({ message: 'Register Unsuccessful' })
 		}
 	}
@@ -133,8 +109,6 @@ export default class UserController {
 		try {
 			const username = req.body.username
 			const password = req.body.password
-			console.log(username)
-			console.log(password)
 
 			if (!username || !password) {
 				res.status(401).json({
@@ -144,40 +118,28 @@ export default class UserController {
 			}
 
 			let login_result = await userService.checkUserName(username)
-			// let login_result = (await client.query(
-			//     'SELECT * from users where username = ($1)', [username])).rows;
-			console.log(login_result[0])
+
 			let user = login_result[0]
-			console.log(user)
 
 			if (!user || Object.keys(user).length === 0) {
 				res.status(401).json({ message: 'Incorrect email or password' })
 				return
 			}
-			console.log(password)
 
 			let match = await checkPassword(password, user.password)
-			console.log(match)
-			console.log(password)
 			if (!match) {
 				res.status(401).redirect('/login.html?error=Incorrect+Username')
 				return
 			}
-			console.log(password)
-
 			req.session.user = {}
 			req.session.user.loggedIn = true
 			req.session.user.username = user.username
 			req.session.user.userId = user.id
 			req.session.user.useremail = user.email
-			console.log(user.id)
-			console.log(req.session.user.loggedIn)
-			console.log(req.session.user.username)
 			req.session.save()
 			res.status(200).json({ message: 'Success login' })
 		} catch (err) {
 			res.status(500).json({ message: 'Internal Server error' })
-			console.log(err)
 			return
 		}
 	}
@@ -209,9 +171,7 @@ export default class UserController {
 		try {
 			let index = 1
 			const user_result = await userService.getUserInfo(index)
-			// const digimon_result = await client.query(/*sql*/`SELECT * from user_id where UserId = ${index}`)
 			res.status(200).json(user_result)
-			console.log(user_result)
 			return
 		} catch (err) {
 			res.status(404).send(err)

@@ -45,9 +45,10 @@ body {
 }
 .poo-icon-container {
   position: absolute;
-  bottom: 50px;
+  bottom: -888px;
   right: 10%;
   height: 100px;
+  z-index: 99999999999;
 }
 
 .poo-icon-container > .poo-label {
