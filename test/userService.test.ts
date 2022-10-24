@@ -3,8 +3,8 @@ import UserService from '../services/UserService'
 // import { exec, ExecException } from "child_process";
 // import { promisify } from 'util';
 // import {seed} from '../seeds/create-users-memos'
-const knexfile = require('./knexfile') // Assuming you test case is inside `services/ folder`
-const knex = Knex(knexfile['test']) // Now the connection is a testing connection.
+const knexConfigs = require('../knexfile') // Assuming you test case is inside `services/ folder`
+const knex = Knex(knexConfigs['test']) // Now the connection is a testing connection.
 
 // const execPromise = promisify(exec);
 // beforeAll(async () => {
@@ -24,7 +24,7 @@ describe('UserService', () => {
 	let service: UserService
 
 	beforeEach(async () => {
-		service = new UserService()
+		service = new UserService(knex)
 	})
 
 	it('should get 1 users', async () => {
@@ -34,13 +34,13 @@ describe('UserService', () => {
 
 	it('register', async () => {
 		const user = await service.registerUser(
-			'kelvin',
-			'abc@gmail.com',
+			'Calvin',
+			'abb@gmail.com',
 			'123456',
 			'45678'
 		)
 
-		expect(user.username).toBe('kelvin')
+		expect(user[0].username).toBe('Calvin')
 	})
 })
 
