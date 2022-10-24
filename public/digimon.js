@@ -167,7 +167,7 @@ async function logout() {
   })
   console.log(res)
   if (res.ok) {
-      window.location.href = './registerAndLogin.html'
+      window.location.href = '/'
   }
 }
 
@@ -284,3 +284,51 @@ closeButton.addEventListener("click", toggleModal);
 
 getDigimonInfo()
 run()
+
+// console.log(1)
+// import {gotResult} from "./ml5"
+// console.log(2)
+
+// console.log(gotResult()); 
+// console.log(3)
+
+// localStorage.setItem('test', 'text from beach')
+
+// if (localStorage==!null){
+//   alert( localStorage.getItem('test') );
+// }
+
+// localStorage.clear();
+
+
+// if(!alertify.myAlert){
+//   //define a new dialog
+//   alertify.dialog('myAlert',function(){
+//     return{
+//       main:function(message){
+//         this.message = message;
+//       },
+//       setup:function(){
+//           return { 
+//             buttons:[{text: "cool!", key:27/*Esc*/}],
+//             focus: { element:0 }
+//           };
+//       },
+//       prepare:function(){
+//         this.setContent(this.message);
+//       }
+//   }});
+// }
+// //launch it.
+// alertify.myAlert("Browser dialogs made easy!");
+
+// if(localStorage.getItem('test') ==null){
+//   return
+// }else{
+  alertify
+  .alert(`Object detected: ${localStorage.getItem('test')}`, function(){
+    alertify.message('Update completed');
+  });
+// }
+
+

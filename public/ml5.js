@@ -33,8 +33,11 @@ async function classifyVideo() {
 	const predictions = await classifier.classify(gotResult)
 }
 
+// export let aiResult;
+
+
 // When we get a result
-async function gotResult(err, results) {
+ async function gotResult(err, results) {
 	// The results are in an array ordered by confidence.
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
@@ -44,8 +47,8 @@ async function gotResult(err, results) {
 		classifyVideo()
 		
 	} else {
-		
-		console.log(cameraResult)
+		alert(cameraResult)
+		console.log('cameraResult ===> ' + cameraResult)
 		const res = await fetch('/digimon/ai_digimon', {
 			
 			method: 'POST',
@@ -58,22 +61,17 @@ async function gotResult(err, results) {
 			
 		})
 
-
-		// const messageEditRes = await fetch('/message/update', {
-		// 	method: 'DELETE',
-		// 	body: JSON.stringify({
-		// 		index: editIndex
-		// 	}), //記得JSON出寫返headers
-		// 	headers: { 'Content-Type': 'application/json' }
-		// })
-
-
-
 		const ml5data = await res.json()
-		console.log(ml5data)
-			window.location.href = '/digimon.html'
+		// document.getElementById("objectDetected").innerHTML = ml5data.detectionObject;
+		alert(cameraResult)
+		// console.log('ml5data => ' + ml5data)
+		// function camResult()
+		window.location.href = '/digimon.html' 
+		if (cameraResult){
+			localStorage.setItem('test', cameraResult);			
+		}
 	}
-
-
 	return cameraResult
 }
+
+

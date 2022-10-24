@@ -112,6 +112,10 @@ async function getDigimonInfo() {
 			</div>
 		</div>
 	`
+
+	await (alert( window.localStorage.getItem('test') ));
+
 }
 
 getDigimonInfo()
+
