@@ -57,8 +57,8 @@ body {
 }
 
 .bar-container {
-  margin-top: 35px;
-  margin-bottom: 35px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 	display: flex;
 	justify-content: space-evenly;
 	align-items: baseline;
