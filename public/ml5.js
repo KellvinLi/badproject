@@ -35,9 +35,8 @@ async function classifyVideo() {
 
 // export let aiResult;
 
-
 // When we get a result
- async function gotResult(err, results) {
+async function gotResult(err, results) {
 	// The results are in an array ordered by confidence.
 	resultsP.html(results[0].label + ' ' + nf(results[0].confidence, 0, 2))
 	let cameraResult = results[0].label.split(',')[0]
@@ -57,14 +56,11 @@ async function classifyVideo() {
 		})
 
 		// const ml5data = await res.json()
-		
-		alert(cameraResult)
-		window.location.href = '/digimon.html' 
-		if (cameraResult){
-			localStorage.setItem('test', cameraResult);			
+
+		window.location.href = '/digimon.html'
+		if (cameraResult) {
+			localStorage.setItem('test', cameraResult)
 		}
 	}
 	return cameraResult
 }
-
-
