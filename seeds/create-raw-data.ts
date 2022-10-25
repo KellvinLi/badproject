@@ -30,7 +30,6 @@ export async function seed(knex: Knex): Promise<void> {
 
 	await knex('digimon_action').del()
 	await knex('action').del()
-	await knex('battle').del()
 	await knex('digimon').del()
 	await knex('digimon_sample').del()
 	await knex('user').del()

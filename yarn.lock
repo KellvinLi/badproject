@@ -1783,6 +1783,11 @@ function-bind@^1.1.1:
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
+gen-env@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/gen-env/-/gen-env-1.0.1.tgz#9d2199810dea38bcb04d1c9a68a9939145eba838"
+  integrity sha512-uafYfqco2GpSZFIva0C8Ln6AsHRh9085t7+zOHuSN5uHuJUhk3CuA9JtiJU4kpKDP4ZOAzRkcUnRoP5Ug61fcQ==
+
 generic-pool@3.8.2:
   version "3.8.2"
   resolved "https://registry.npmjs.org/generic-pool/-/generic-pool-3.8.2.tgz"
