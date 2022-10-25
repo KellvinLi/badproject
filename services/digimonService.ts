@@ -5,7 +5,7 @@ export default class DigimonService {
 
 	async getDigimonInfo(userId: number) {
 		let digimonInfo = await knex.raw(
-			`SELECT *
+			`SELECT d.*, ds.name, ds.image
             FROM digimon d 
             left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
             where  user_id = ?;`,
