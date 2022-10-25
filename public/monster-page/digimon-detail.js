@@ -35,7 +35,7 @@ async function getDigimonInfo() {
 		<div class="cell" style="margin-top: 5rem;">
 			<div
 				class="container-fluid d-flex flex-column flex-justify-between"
-				style="height: 90%;"
+				style="height: 80%;"
 			>
 				<!-- TODO: add column at digimon table for level -->
 				<div class="row">${data.evo}</div>
