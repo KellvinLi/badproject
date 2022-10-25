@@ -5,7 +5,7 @@ export default class DigimonService {
 
 	async getDigimonInfo(userId: number) {
 		let digimonInfo = await knex.raw(
-			`SELECT d.*, ds.name, ds.image
+			`SELECT d.*, ds.name, ds.image,ds.skill,ds.max_hp,ds.type
             FROM digimon d 
             left JOIN digimon_sample ds  on d.digimon_sample_id  =ds.id 
             where  user_id = ?;`,
@@ -53,8 +53,16 @@ export default class DigimonService {
 		// let result = await knex
 
 		let result = await knex('digimon')
-		.select(["digimon.*", "digimon_sample.name", "digimon_sample.image"])
-			.join('digimon_sample', 'digimon.digimon_sample_id', 'digimon_sample.id')
+			.select([
+				'digimon.*',
+				'digimon_sample.name',
+				'digimon_sample.image'
+			])
+			.join(
+				'digimon_sample',
+				'digimon.digimon_sample_id',
+				'digimon_sample.id'
+			)
 			.where({ 'digimon.user_id ': userId })
 		console.log(result)
 
@@ -146,17 +154,15 @@ export default class DigimonService {
 				.where('id', digimon_id.id)
 		}
 
-		for(let socketId of socketIds) {
-			io.to(socketId).emit('digimon-hungry', {hungry: 1});
+		for (let socketId of socketIds) {
+			io.to(socketId).emit('digimon-hungry', { hungry: 1 })
 		}
 
 		io.emit('new-mark', { message: 'New Mark' })
 		io.emit('new-mark2', { message: 'New Mark 2' })
-	
-		io.emit('digimon-hungry', { message: 'Digimon Hungry'})
 
-		
-		
+		io.emit('digimon-hungry', { message: 'Digimon Hungry' })
+
 		return
 	}
 }
