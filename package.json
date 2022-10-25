@@ -29,6 +29,7 @@
 		"express": "^4.18.1",
 		"express-session": "^1.17.3",
 		"formidable": "^2.0.1",
+		"gen-env": "^1.0.1",
 		"grant": "^5.4.21",
 		"knex": "^2.3.0",
 		"node-cron": "^3.0.2",
