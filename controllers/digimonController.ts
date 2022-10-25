@@ -1,5 +1,6 @@
 import DigimonService from '../services/digimonService'
 import { Request, Response } from 'express'
+import console from 'console'
 
 enum AI_ACTION {
 	ORANGE = 'orange',
@@ -123,6 +124,7 @@ export default class DigimonController {
 	aiDigimon = async (req: Request, res: Response) => {
 		try {
 			let userId = req.session.user?.userId
+			console.log("userId: " +　userId)
 			if (!userId) {
 				res.status(401).json({
 					message: 'Not yet logged in'
@@ -132,23 +134,26 @@ export default class DigimonController {
 			const checkDigimonInfo = await this.digimonService.getDigimonInfo(
 				userId
 			)
+			// let digimonSampleid = checkDigimonInfo.digimon_sample_id
 			const evo: number = checkDigimonInfo.evo
 			let digimonName: string = checkDigimonInfo.name
 			let happyExp: number = checkDigimonInfo.happy_exp
 			let hp: number = checkDigimonInfo.hp
 			let exp = Number(happyExp + 50)
 			let updataHp = Number(hp + 100)
+			console.log(checkDigimonInfo)
+
 			if (!checkDigimonInfo.id || !Number(checkDigimonInfo.id)) {
 				res.status(400).json({ message: 'index is not a number' })
 				return
 			}
 			if (happyExp === 200) {
-				if (evo === 1 && digimonName === 'Agumon') {
+				if (evo === 1 && digimonName == 'Agumon') {
 					const evoigimon_result =
 						await this.digimonService.evoDigimon1(
 							checkDigimonInfo.id
 						)
-				} else if (evo === 1 && digimonName === 'Gabumon') {
+				} else if (evo === 1 && digimonName == 'Gabumon') {
 					const evoigimon_result =
 						await this.digimonService.evoDigimon2(
 							checkDigimonInfo.id
