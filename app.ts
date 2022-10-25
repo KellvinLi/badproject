@@ -31,7 +31,6 @@ setSockIO(io)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-
 app.use(
 	expressSession({
 		secret: 'key.tecky.io',
@@ -49,7 +48,7 @@ app.use(
 
 const grantExpress = grant.express({
 	defaults: {
-		origin: 'http://localhost:8080',
+		origin: 'https://www.celestecherry.art',
 		transport: 'session',
 		state: true
 	},

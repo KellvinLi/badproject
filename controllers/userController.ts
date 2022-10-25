@@ -47,10 +47,6 @@ export default class UserController {
 			req.session.user.useremail = user.email
 			req.session.save()
 			res.redirect('/digimon.html')
-
-			res.status(200).json({
-				message: 'Register Successful'
-			})
 		} catch (error) {
 			res.status(401).json({ message: 'Register Unsuccessful' })
 		}
