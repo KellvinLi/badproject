@@ -32,7 +32,7 @@ async function getDigimonInfo() {
 
 	let upperDetailRow = document.querySelector('#upper-detail-row')
 	upperDetailRow.innerHTML = /* HTML */ `
-		<div class="cell" style="margin-top: 5rem; margin-bottom: 5px;">
+		<div class="cell" style="margin-top: 5rem;">
 			<div
 				class="container-fluid d-flex flex-column flex-justify-between"
 				style="height: 100%;"
@@ -51,7 +51,7 @@ async function getDigimonInfo() {
 		</div>
 		<div
 			class="cell card text-dark bg-light mb-3 "
-			style="width: 18rem; background: rgb(29,191,236) !important; opacity: 0.7; border-radius: 10px;margin-top: 5rem; margin-bottom: 5px;"
+			style="width: 18rem; background: rgb(29,191,236) !important; opacity: 0.7; border-radius: 10px;margin-top: 5rem;"
 		>
 			<div>Stats</div>
 			<div class="d-flex flex-align-center bar">
